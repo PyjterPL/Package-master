@@ -16,7 +16,7 @@ namespace Package_master
         {
             if (Height < 0.1 || Weight < 0.1)
             {
-                throw new Exception("Podano zbyt małe rozmary paczki");
+                throw new Exception("Podano zbyt małe rozmary paczki!");
             }
             else
             {
