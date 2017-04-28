@@ -3,26 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Drawing;
 namespace Package_master
 {
     class Package
     {
-        private double Height;//wysokość
-        private double Weight;//szerokość
+       
+        private Rectangle Size { get; set; }
 
         //konstruktor
-        public Package(double Height, double Weight)
+        public Package(int Height, int Weight)
         {
-            if (Height < 0.1 || Weight < 0.1)
+            if (Height < 4 || Weight < 4 || Height > 40 || Weight >40)
             {
                 throw new Exception("Podano zbyt małe rozmary paczki!!");
             }
             else
             {
-                this.Height = Height;
-                this.Weight = Weight;
+                Size = new Rectangle(0, 0, Weight, Height);//Point reprezentuje lewy góry róg
             }
+        }
+        public Package()
+        {
+            Size = new Rectangle(0, 0, 12, 8);//Point reprezentuje lewy góry róg
         }
     }
 }
