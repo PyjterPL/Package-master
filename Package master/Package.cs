@@ -8,24 +8,34 @@ namespace Package_master
 {
     class Package
     {
-       
-        private Rectangle Size { get; set; }
+
+        private Rectangle size;
+        public Rectangle Size
+        {
+            get { return size; }
+            set { size = value; }
+        }
+
+        public override string ToString()
+        {
+            return size.Width + " x" + size.Height;
+        }
 
         //konstruktor
         public Package(int Height, int Weight)
         {
-            if (Height < 4 || Weight < 4 || Height > 40 || Weight >40)
+            if (Height < 40 || Weight < 40 || Height > 400 || Weight >400)
             {
                 throw new Exception("Podano zbyt małe rozmary paczki!!");
             }
             else
             {
-                Size = new Rectangle(0, 0, Weight, Height);//Point reprezentuje lewy góry róg
+                size = new Rectangle(0, 0, Weight, Height);//Point reprezentuje lewy góry róg
             }
         }
         public Package()
         {
-            Size = new Rectangle(0, 0, 12, 8);//Point reprezentuje lewy góry róg
+            size = new Rectangle(0, 0, 120, 80);//Point reprezentuje lewy góry róg
         }
     }
 }
