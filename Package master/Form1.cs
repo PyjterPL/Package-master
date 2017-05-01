@@ -8,26 +8,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections;
+using System.IO;
 namespace Package_master
 {
 
     public partial class Form1 : Form
     {
-        private Graphics g;
-        private int przesuniecie = -10;
-        internal List<Package> Paczki = new List<Package>();
+        private Graphics gRysuj;
+        private List<Package> Paczki = new List<Package>();
         public Form1()
         {
             InitializeComponent();
-            g = Graphics.FromHwnd(this.Handle);
+            gRysuj = Graphics.FromHwnd(this.Handle);
             Height_numeric_updown.Minimum = 40;
             Height_numeric_updown.Maximum = 400;
             Height_numeric_updown.Value = 120;
             Weight_numericUpDown.Minimum = 40;
             Weight_numericUpDown.Maximum = 400;
             Weight_numericUpDown.Value = 80;
-            
-           // listBox1.DataSource =;Paczki;
+
         }
 
 
@@ -38,7 +37,7 @@ namespace Package_master
             int i = listBox1.SelectedIndex;
             if (i > -1)
             {
-                //g.DrawRectangle(pen,Paczki[i].Size);
+                gRysuj.DrawRectangle(pen,Paczki[i].Size);
             }
            
 
@@ -99,6 +98,63 @@ namespace Package_master
                 Paczki.RemoveAt(i);
                 listBox1.Items.RemoveAt(i);
             }
+        }
+
+        private void bSave_Click(object sender, EventArgs e)
+        {
+            StreamWriter sw;
+            if (File.Exists("Package_list.txt"))
+            {
+                File.Delete("Package_list.txt");
+            }
+           
+            sw = File.CreateText("Package_list.txt");
+                foreach (Package t in Paczki)
+                {
+                    sw.WriteLine(t.Size.Width);
+                    sw.WriteLine(t.Size.Height);
+                }
+            sw.Close();
+               
+            
+        }
+
+        private void bLoad_Click(object sender, EventArgs e)
+        {
+
+            if (File.Exists("Package_list.txt"))
+            {
+                String[] tablica;
+                //// String x = File.ReadAllText("Package_list.txt");
+                // listBox1.Items.Add(x);
+                tablica = File.ReadAllLines("Package_list.txt");
+                Paczki.Clear();
+                listBox1.Items.Clear();
+                try
+                {
+                    for (int i = 0; i < tablica.Length; i += 2)
+                    {
+                        int w = Int32.Parse(tablica[i]);
+                        int h = Int32.Parse(tablica[i + 1]);
+                        Package temp = new Package(w, h);
+                        Paczki.Add(temp);
+                        listBox1.Items.Add(temp);
+                    }
+
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Plik jest uszkodzony!");
+                    File.Delete("Package_list.txt");
+                    //sw.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Nie znaleziono pliku. Zapisz listę aby utworzyć");
+            }
+
+            
         }
     }
 }
