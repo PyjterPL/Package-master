@@ -15,8 +15,9 @@ namespace Package_master
     public partial class Form1 : Form
     {
         private Graphics gRysuj;
-        private List<Package> Packages = new List<Package>();
-        private Dictionary<int,Package> Packages_in_container = new Dictionary<int,Package>();
+        internal List<Package> Packages = new List<Package>();
+        internal Dictionary<Package, int> Packages_in_container = new Dictionary<Package, int>();
+        Add_Package_to_Container_Form Add_Form;
         public Form1()
         {
             InitializeComponent();
@@ -170,31 +171,42 @@ namespace Package_master
 
         private void bContainerAdd_Click(object sender, EventArgs e)
         {
+
             int i = lPackage_list.SelectedIndex;
             if (i > -1)
             {
                 Package temp = Packages[i];
-                if (Packages_in_container.ContainsValue(temp))
+                if (Packages_in_container.ContainsKey(temp))
                 {
                     MessageBox.Show("Ta paczka znajduje się już w kontenerze");
                 }
                 else
                 {
-                    int Result = CustomDialog.ShowDialog("Ile chcesz dodać?", "Dodawanie do listy");
-                    if (Result > 0)
+                    if (Add_Form == null)
                     {
-                        Packages_in_container.Add(Result, temp);
-                        lContainer_packages.Items.Add(temp.ToString());
+                        Add_Form = new Add_Package_to_Container_Form();
+                        Add_Form.Owner = this;
+                        Add_Form.FormClosed += Add_Form_FormClosed;
+                        Add_Form.Show();
                     }
+                    else
+                    {
+                        Add_Form.Activate();
+                    }
+                    //int Result = CustomDialog.ShowDialog("Ile chcesz dodać?", "Dodawanie do listy");
+                    ////int Result = Add_Package_to_Container_Form.
+                    //if (Result > 0)
+                    //{
+                    //    Packages_in_container.Add(Result, temp);
+                    //    lContainer_packages.Items.Add(temp.ToString());
+                    //}
                 }
-            }
-            //if (Packages_in_container.ContainsValue(temp))
-            //{
-            //    MessageBox.Show("To już je");
+            }           
+        }
 
-            //}
-            //Packages_in_container.Add(1, temp);
-            //lContainer_packages.Items.Add(temp.ToString() + "1fgh");
+        private void Add_Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Add_Form = null;
         }
     }
 }

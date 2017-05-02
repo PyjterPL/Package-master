@@ -188,7 +188,8 @@
             this.Controls.Add(this.gDefined_Packages);
             this.Controls.Add(this.bRysuj);
             this.Name = "Form1";
-            this.Text = "s";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Package master";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Height_numeric_updown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weight_numericUpDown)).EndInit();
@@ -202,7 +203,6 @@
 
         private System.Windows.Forms.Button bRysuj;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.ListBox lPackage_list;
         private System.Windows.Forms.NumericUpDown Height_numeric_updown;
         private System.Windows.Forms.Label LHeight;
         private System.Windows.Forms.NumericUpDown Weight_numericUpDown;
@@ -211,8 +211,9 @@
         private System.Windows.Forms.Button bSave;
         private System.Windows.Forms.Button bLoad;
         private System.Windows.Forms.GroupBox gDefined_Packages;
-        private System.Windows.Forms.ListBox lContainer_packages;
         private System.Windows.Forms.Button bContainerAdd;
+        public System.Windows.Forms.ListBox lContainer_packages;
+        internal System.Windows.Forms.ListBox lPackage_list;
     }
 }
 
