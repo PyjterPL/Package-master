@@ -171,17 +171,23 @@ namespace Package_master
         private void bContainerAdd_Click(object sender, EventArgs e)
         {
             int i = lPackage_list.SelectedIndex;
-
-            Package temp = Packages[i];
-            if (Packages_in_container.ContainsValue(temp))
+            if (i > -1)
             {
-                MessageBox.Show("ss");
+                Package temp = Packages[i];
+                if (Packages_in_container.ContainsValue(temp))
+                {
+                    MessageBox.Show("Ta paczka znajduje się już w kontenerze");
+                }
+                else
+                {
+                    int Result = CustomDialog.ShowDialog("Ile chcesz dodać?", "Dodawanie do listy");
+                    if (Result > 0)
+                    {
+                        Packages_in_container.Add(Result, temp);
+                        lContainer_packages.Items.Add(temp.ToString());
+                    }
+                }
             }
-            else
-            {
-                Packages_in_container.Add(1, temp);
-            }
-
             //if (Packages_in_container.ContainsValue(temp))
             //{
             //    MessageBox.Show("To już je");

@@ -163,14 +163,14 @@
             // lContainer_packages
             // 
             this.lContainer_packages.FormattingEnabled = true;
-            this.lContainer_packages.Location = new System.Drawing.Point(858, 31);
+            this.lContainer_packages.Location = new System.Drawing.Point(562, 31);
             this.lContainer_packages.Name = "lContainer_packages";
             this.lContainer_packages.Size = new System.Drawing.Size(120, 95);
             this.lContainer_packages.TabIndex = 12;
             // 
             // bContainerAdd
             // 
-            this.bContainerAdd.Location = new System.Drawing.Point(734, 31);
+            this.bContainerAdd.Location = new System.Drawing.Point(438, 31);
             this.bContainerAdd.Name = "bContainerAdd";
             this.bContainerAdd.Size = new System.Drawing.Size(118, 23);
             this.bContainerAdd.TabIndex = 13;
