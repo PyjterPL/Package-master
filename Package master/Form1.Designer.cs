@@ -85,9 +85,9 @@
             this.LHeight.AutoSize = true;
             this.LHeight.Location = new System.Drawing.Point(41, 185);
             this.LHeight.Name = "LHeight";
-            this.LHeight.Size = new System.Drawing.Size(80, 13);
+            this.LHeight.Size = new System.Drawing.Size(74, 13);
             this.LHeight.TabIndex = 5;
-            this.LHeight.Text = "Wysokość [cm]";
+            this.LHeight.Text = "Wysokość [m]";
             this.LHeight.Click += new System.EventHandler(this.LHeight_Click);
             // 
             // Width_numericUpDown
@@ -104,9 +104,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(41, 211);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 13);
+            this.label1.Size = new System.Drawing.Size(74, 13);
             this.label1.TabIndex = 7;
-            this.label1.Text = "Szerokość [cm]";
+            this.label1.Text = "Szerokość [m]";
             // 
             // BDelete_Package
             // 
@@ -190,9 +190,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(435, 145);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(158, 13);
+            this.label2.Size = new System.Drawing.Size(152, 13);
             this.label2.TabIndex = 15;
-            this.label2.Text = "Aktualny rozmiar kontenera [cm]";
+            this.label2.Text = "Aktualny rozmiar kontenera [m]";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // lContainer_size

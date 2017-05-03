@@ -25,7 +25,7 @@ namespace Package_master
         {
             InitializeComponent();
             Main_Container = new Container();
-            
+            //Packages.Sort()
             Height_numeric_updown.Minimum = (decimal)0.4;
             Height_numeric_updown.Maximum = 4;
             Height_numeric_updown.Value = (decimal)1.2;
@@ -64,7 +64,13 @@ namespace Package_master
             if (can_add)
             {
                 Packages.Add(temp);
-                lPackage_list.Items.Add(temp.ToString());
+                //lPackage_list.Items.Add(temp.ToString());
+                Packages.Sort();
+                lPackage_list.Items.Clear();
+                foreach (Package t in Packages)
+                {
+                    lPackage_list.Items.Add(t.ToString());
+                }
             }   
             
         }
@@ -261,7 +267,7 @@ namespace Package_master
                 arrangement_form.Width = (int)(Main_Container.Widht_100()) +50;
                 arrangement_form.Height = (int)(Main_Container.Height_100()) +50;
                 arrangement_form.panel1.Width = (int)(Main_Container.Widht_100()) +10;
-                arrangement_form.panel1.Height = (int)(Main_Container.Height_100()) + 10;
+                arrangement_form.panel1.Height = (int)(Main_Container.Height_100()) + 100;
                 arrangement_form.Text = "Kontener " + Main_Container.ToString();
                 
                 arrangement_form.Owner = this;

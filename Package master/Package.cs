@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 namespace Package_master
 {
-    class Package
+    class Package : IComparable
     {
 
        // private Rectangle size;
@@ -47,6 +47,16 @@ namespace Package_master
             return width.ToString() + "x" + height.ToString();
         }
 
+        public int CompareTo(object obj)
+        {
+            Package that = (Package)obj;
+            //throw new NotImplementedException();
+            if (this.height == that.height) return 0;
+            if (this.height > that.height) return -1;
+            return 1;
+            
+        }
+
         private float field;
 
         public float Field
@@ -54,8 +64,9 @@ namespace Package_master
             get { return field; }  //set { field = value; }
         }
 
+        //comp
 
-        //konstruktor
+        //konstruktory
         public Package(float Height, float Width)
         {
             if (Height < 0.4 || Width < 0.4 || Height > 4 || Width > 4 )
