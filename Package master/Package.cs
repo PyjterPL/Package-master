@@ -9,43 +9,73 @@ namespace Package_master
     class Package
     {
 
-        private Rectangle size;
-        public Rectangle Size
+       // private Rectangle size;
+        //public Rectangle Size
+       // {
+       //     get { return size; }
+       //     set { size = value; }
+      //  }
+
+        private float width;
+
+        public float Width
         {
-            get { return size; }
-            set { size = value; }
+            get { return width; }
+           // set { width = value; }
         }
+
+        private float height;
+
+        public float Height
+        {
+            get { return height; }
+            //set { height = value; }
+        }
+
+        public float Widht_100()
+        {
+            return width * 100;
+        }
+        public float Height_100()
+        {
+            return height * 100;
+        }
+
 
         public override string ToString()
         {
-            return size.Width + "x" + size.Height;
+            return width.ToString() + "x" + height.ToString();
         }
 
-        private int field;
+        private float field;
 
-        public int Field
+        public float Field
         {
             get { return field; }  //set { field = value; }
         }
 
 
         //konstruktor
-        public Package(int Height, int Width)
+        public Package(float Height, float Width)
         {
-            if (Height < 40 || Width < 40 || Height > 400 || Width >400)
+            if (Height < 0.4 || Width < 0.4 || Height > 4 || Width > 4 )
             {
-                throw new Exception("Podano zbyt małe rozmary paczki!!");
+                throw new Exception("Podano złe rozmary paczki!!");
             }
             else
             {
-                size = new Rectangle(0, 0, Width, Height);//Point reprezentuje lewy góry róg
+                //size = new Rectangle(0, 0, Width, Height);//Point reprezentuje lewy góry róg
+                this.width = Width;
+                this.height = Height;
                 field = Width * Height;
             }
         }
         public Package()
         {
-            size = new Rectangle(0, 0, 120, 80);//Point reprezentuje lewy góry róg
-            field = 120 * 80;
+            //size = new Rectangle(0, 0, 120, 80);//Point reprezentuje lewy góry róg
+            width = 0.8f;
+            height = 1.2f;
+            field = 0.8f * 1.2f;
         }
     }
 }

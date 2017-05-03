@@ -40,6 +40,7 @@
             // 
             // Height_numericUpDown
             // 
+            this.Height_numericUpDown.DecimalPlaces = 2;
             this.Height_numericUpDown.Location = new System.Drawing.Point(75, 12);
             this.Height_numericUpDown.Name = "Height_numericUpDown";
             this.Height_numericUpDown.Size = new System.Drawing.Size(120, 20);
@@ -47,6 +48,7 @@
             // 
             // Width_numericUpDown
             // 
+            this.Width_numericUpDown.DecimalPlaces = 2;
             this.Width_numericUpDown.Location = new System.Drawing.Point(75, 38);
             this.Width_numericUpDown.Name = "Width_numericUpDown";
             this.Width_numericUpDown.Size = new System.Drawing.Size(120, 20);

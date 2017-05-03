@@ -12,52 +12,73 @@ namespace Package_master
         //(w zakresie długość: 5-20 m szerokość: 1 – 5 m - domyślnie 13,6 x 2,4),
 
         //private Rectangle Size { get; set; }
-        private Rectangle size;
+        //private Rectangle size;
 
-        public Rectangle Size
+        //public Rectangle Size
+        //{
+        //    get { return size; }
+        //    set { size = value; }
+        //}
+
+        private float height;
+
+        public float Height
         {
-            get { return size; }
-            set { size = value; }
-        }
+            get { return height; }
+            set
+            {
+                if (value > 20 || value < 5)
+                {
+                    throw new Exception("Podano złe rozmiary kontenera!");
 
-        public int Width { get { return size.Width; } }
-        public int Height { get { return size.Height; } }
-        public void SetWidth(int w)
-        {
-            if ( w < 1000 || w > 5000)
-            {
-                throw new Exception("Podano złe rozmiary kontenera!");
-
-            }
-            else
-            {
-                size.Width = w;
-            }
-        }
-        public void SetHeight(int h)
-        {
-            if (h > 20000 || h < 5000)
-            {
-                throw new Exception("Podano złe rozmiary kontenera!");
-
-            }
-            else
-            {
-                size.Height = h;
+                }
+                else
+                {
+                    height = value;
+                }
             }
         }
+        private float width;
 
-
-        public Container(int Height, int Width)
+        public float Width
         {
-            if (Height > 20000 || Height < 5000 || Width > 1000 || Width < 5000)
+            get { return width; }
+            set
+            {
+                if (value < 1 || value > 5)
+                {
+                    throw new Exception("Podano złe rozmiary kontenera!");
+
+                }
+                else
+                {
+                    width = value;
+                }
+            }
+        }
+
+        public float Widht_100()
+            {
+                return width * 100;
+            }
+        public float Height_100()
+        {
+            return height * 100;
+        }
+
+        public Container(float Height, float Width)
+        {
+            if (Height > 20 || Height < 5 || Width > 1 || Width < 5)
             {
                 throw new Exception("Podano złe rozmiary kontenera!");
                 
             }
             else
             {
-                size = new Rectangle(0, 0, Width, Height);//Point reprezentuje lewy góry róg
+                //size = new Rectangle(0, 0, Width, Height);//Point reprezentuje lewy góry róg
+                this.height = Height;
+                this.width = Width;
+
             }
         }
 
@@ -65,12 +86,14 @@ namespace Package_master
 
         public Container()
         {
-            size = new Rectangle(0, 0, 2400, 13600);//Rectangle przyjmuje inty takze 1 int = 10 cm 
+            //size = new Rectangle(0, 0, 2400, 13600);//Rectangle przyjmuje inty takze 1 int = 10 cm 
+            this.height = 13.6f;
+            this.width = 2.4f;
         }
 
         public override string ToString()
         {
-             return size.Width.ToString() + "x" + size.Height.ToString();
+             return width.ToString() + "x" + height.ToString();
         }
 
     }

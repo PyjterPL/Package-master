@@ -16,10 +16,12 @@ namespace Package_master
         {
             InitializeComponent();
 
-            Height_numericUpDown.Minimum = 5000;
-            Height_numericUpDown.Maximum = 20000;
-            Width_numericUpDown.Minimum = 1000;
-            Width_numericUpDown.Maximum = 5000;
+            Height_numericUpDown.Minimum = 5;
+            Height_numericUpDown.Maximum = 20;
+            Width_numericUpDown.Minimum = 1;
+            Width_numericUpDown.Maximum = 5;
+            Height_numericUpDown.Increment = (decimal)0.01;
+            Width_numericUpDown.Increment = (decimal)0.01;
         }
 
         private void bCancel_Click(object sender, EventArgs e)
@@ -36,8 +38,8 @@ namespace Package_master
         {
             Form1 form = (Form1)this.Owner;
 
-            form.Main_Container.SetHeight((int)Height_numericUpDown.Value);
-            form.Main_Container.SetWidth((int)Width_numericUpDown.Value);
+            form.Main_Container.Height=(float)Height_numericUpDown.Value;
+            form.Main_Container.Width=(float)Width_numericUpDown.Value;
             form.lContainer_size.Text = form.Main_Container.ToString();
             this.Close();
         }

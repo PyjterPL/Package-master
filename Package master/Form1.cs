@@ -26,13 +26,16 @@ namespace Package_master
             InitializeComponent();
             Main_Container = new Container();
             
-            Height_numeric_updown.Minimum = 40;
-            Height_numeric_updown.Maximum = 400;
-            Height_numeric_updown.Value = 120;
-            Width_numericUpDown.Minimum = 40;
-            Width_numericUpDown.Maximum = 400;
-            Width_numericUpDown.Value = 80;
+            Height_numeric_updown.Minimum = (decimal)0.4;
+            Height_numeric_updown.Maximum = 4;
+            Height_numeric_updown.Value = (decimal)1.2;
+            Width_numericUpDown.Minimum = (decimal)0.4;
+            Width_numericUpDown.Maximum = 4;
+            Width_numericUpDown.Value = (decimal)0.8;
+            Width_numericUpDown.Increment = (decimal)0.01;
+            Height_numeric_updown.Increment = (decimal)0.01;
             lContainer_size.Text = Main_Container.ToString();
+            
            
         }
         
@@ -47,7 +50,7 @@ namespace Package_master
         private void button2_Click(object sender, EventArgs e)
         {
             bool can_add = true;
-            Package temp = new Package((int)Height_numeric_updown.Value, (int)Width_numericUpDown.Value);
+            Package temp = new Package((float)Height_numeric_updown.Value,(float) Width_numericUpDown.Value);
             
             foreach (Package t in Packages)
             {
@@ -106,8 +109,8 @@ namespace Package_master
                 sw = File.CreateText("Package_list.txt");
                 foreach (Package t in Packages)
                 {
-                    sw.WriteLine(t.Size.Width);
-                    sw.WriteLine(t.Size.Height);
+                    sw.WriteLine(t.Width);
+                    sw.WriteLine(t.Height);
                 }
                 sw.Close();
             }
@@ -133,8 +136,8 @@ namespace Package_master
                     {
                         for (int i = 0; i < tablica.Length; i += 2)
                         {
-                            int h = Int32.Parse(tablica[i]);
-                            int w = Int32.Parse(tablica[i + 1]);
+                            float h = float.Parse(tablica[i]);
+                            float w = float.Parse(tablica[i + 1]);
                             Package temp = new Package(w, h);
                             Packages.Add(temp);
                             lPackage_list.Items.Add(temp);
@@ -255,10 +258,10 @@ namespace Package_master
             {
                
                 arrangement_form = new Arrangement_Form();
-                arrangement_form.Width = (Main_Container.Width/10)+50;
-                arrangement_form.Height = (Main_Container.Height/10)+50;
-                arrangement_form.panel1.Width = (Main_Container.Width / 10)+10;
-                arrangement_form.panel1.Height = (Main_Container.Height / 10) + 50;
+                arrangement_form.Width = (int)(Main_Container.Widht_100()) +50;
+                arrangement_form.Height = (int)(Main_Container.Height_100()) +50;
+                arrangement_form.panel1.Width = (int)(Main_Container.Widht_100()) +10;
+                arrangement_form.panel1.Height = (int)(Main_Container.Height_100()) + 10;
                 arrangement_form.Text = "Kontener " + Main_Container.ToString();
                 
                 arrangement_form.Owner = this;
@@ -276,6 +279,11 @@ namespace Package_master
         private void Arrangement_form_FormClosed(object sender, FormClosedEventArgs e)
         {
             arrangement_form = null;
+        }
+
+        private void domainUpDown1_SelectedItemChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

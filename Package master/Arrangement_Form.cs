@@ -16,12 +16,7 @@ namespace Package_master
         public Arrangement_Form()
         {
             InitializeComponent();
-            
-            //gDraw = Graphics.FromHwnd(this.Handle);
-            this.AutoScroll = true;
-            //this.inva
-            
-                   
+            this.AutoScroll = true;  
         }
 
         private void gContainer_Enter(object sender, EventArgs e)
@@ -43,8 +38,7 @@ namespace Package_master
 
         private void Arrangement_Form_Paint(object sender, PaintEventArgs e)
         {
-            //Graphics g = e.Graphics;
-            //g.DrawRectangle(new Pen(Color.Red), 0, 0, 50, 50);
+           
         }
 
         private void Arrangement_Form_Scroll(object sender, ScrollEventArgs e)
@@ -56,7 +50,9 @@ namespace Package_master
         {
             Form1 Parent_form = (Form1)this.Owner;
             Graphics g = e.Graphics;
-            g.DrawRectangle(new Pen(Color.Red), 0,0,Parent_form.Main_Container.Width/10,Parent_form.Main_Container.Height/10);
+            g.FillRectangle(new SolidBrush(Color.WhiteSmoke), 0, 0, Parent_form.Main_Container.Widht_100(), Parent_form.Main_Container.Height_100());
+            g.DrawRectangle(new Pen(Color.Black), 0,0,Parent_form.Main_Container.Widht_100(), Parent_form.Main_Container.Height_100());
+
         }
     }
 }

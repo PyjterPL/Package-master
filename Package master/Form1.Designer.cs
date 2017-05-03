@@ -73,6 +73,7 @@
             // Height_numeric_updown
             // 
             this.Height_numeric_updown.AccessibleDescription = "Dlugosc_numeris";
+            this.Height_numeric_updown.DecimalPlaces = 2;
             this.Height_numeric_updown.Location = new System.Drawing.Point(127, 178);
             this.Height_numeric_updown.Name = "Height_numeric_updown";
             this.Height_numeric_updown.Size = new System.Drawing.Size(120, 20);
@@ -92,6 +93,7 @@
             // Width_numericUpDown
             // 
             this.Width_numericUpDown.AccessibleDescription = "Dlugosc_numeris";
+            this.Width_numericUpDown.DecimalPlaces = 2;
             this.Width_numericUpDown.Location = new System.Drawing.Point(127, 204);
             this.Width_numericUpDown.Name = "Width_numericUpDown";
             this.Width_numericUpDown.Size = new System.Drawing.Size(120, 20);
@@ -213,7 +215,7 @@
             // 
             // bArrange
             // 
-            this.bArrange.Location = new System.Drawing.Point(438, 241);
+            this.bArrange.Location = new System.Drawing.Point(543, 233);
             this.bArrange.Name = "bArrange";
             this.bArrange.Size = new System.Drawing.Size(75, 23);
             this.bArrange.TabIndex = 18;
@@ -225,7 +227,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(804, 298);
+            this.ClientSize = new System.Drawing.Size(718, 285);
             this.Controls.Add(this.bArrange);
             this.Controls.Add(this.bContainer_size_change);
             this.Controls.Add(this.lContainer_size);
