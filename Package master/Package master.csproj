@@ -52,8 +52,13 @@
     <Compile Include="Add_Package_to_Container_Form.Designer.cs">
       <DependentUpon>Add_Package_to_Container_Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="Change_Container_Size_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Change_Container_Size_Form.Designer.cs">
+      <DependentUpon>Change_Container_Size_Form.cs</DependentUpon>
+    </Compile>
     <Compile Include="Container.cs" />
-    <Compile Include="CustomDialog.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,22 +66,16 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Package.cs" />
-    <Compile Include="Package_Input_Dialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Package_Input_Dialog.Designer.cs">
-      <DependentUpon>Package_Input_Dialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Add_Package_to_Container_Form.resx">
       <DependentUpon>Add_Package_to_Container_Form.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Change_Container_Size_Form.resx">
+      <DependentUpon>Change_Container_Size_Form.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Package_Input_Dialog.resx">
-      <DependentUpon>Package_Input_Dialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

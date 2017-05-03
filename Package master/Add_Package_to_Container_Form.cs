@@ -16,6 +16,7 @@ namespace Package_master
         {
             InitializeComponent();
             Packages_to_container_numericUpDown.Minimum = 1;
+            Packages_to_container_numericUpDown.Maximum = Int32.MaxValue;
 
         }
 
@@ -40,9 +41,8 @@ namespace Package_master
 
                 Package temp = form.Packages[i];
                 form.Packages_in_container.Add(temp, Result);
-                form.lContainer_packages.Items.Add(temp.ToString());
+                form.lContainer_packages.Items.Add(Result.ToString()+" x "+temp.ToString());
 
-                //int i = form.Packages
             }
             this.Close();
         }
@@ -51,6 +51,11 @@ namespace Package_master
         {
             get { return (int)Packages_to_container_numericUpDown.Value; }
             
+        }
+
+        private void Packages_to_container_numericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

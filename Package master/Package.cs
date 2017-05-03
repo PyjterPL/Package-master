@@ -18,24 +18,34 @@ namespace Package_master
 
         public override string ToString()
         {
-            return size.Width + " x" + size.Height;
+            return size.Width + "x" + size.Height;
         }
 
-        //konstruktor
-        public Package(int Height, int Weight)
+        private int field;
+
+        public int Field
         {
-            if (Height < 40 || Weight < 40 || Height > 400 || Weight >400)
+            get { return field; }  //set { field = value; }
+        }
+
+
+        //konstruktor
+        public Package(int Height, int Width)
+        {
+            if (Height < 40 || Width < 40 || Height > 400 || Width >400)
             {
                 throw new Exception("Podano zbyt małe rozmary paczki!!");
             }
             else
             {
-                size = new Rectangle(0, 0, Weight, Height);//Point reprezentuje lewy góry róg
+                size = new Rectangle(0, 0, Width, Height);//Point reprezentuje lewy góry róg
+                field = Width * Height;
             }
         }
         public Package()
         {
             size = new Rectangle(0, 0, 120, 80);//Point reprezentuje lewy góry róg
+            field = 120 * 80;
         }
     }
 }

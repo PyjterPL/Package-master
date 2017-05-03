@@ -14,20 +14,23 @@ namespace Package_master
 
     public partial class Form1 : Form
     {
-        private Graphics gRysuj;
+        private Graphics gDraw;
         internal List<Package> Packages = new List<Package>();
         internal Dictionary<Package, int> Packages_in_container = new Dictionary<Package, int>();
         Add_Package_to_Container_Form Add_Form;
+        Change_Container_Size_Form Change_Form;
+        internal Container Main_Container = new Container();
         public Form1()
         {
             InitializeComponent();
-            gRysuj = Graphics.FromHwnd(this.Handle);
+            gDraw = Graphics.FromHwnd(this.Handle);
             Height_numeric_updown.Minimum = 40;
             Height_numeric_updown.Maximum = 400;
             Height_numeric_updown.Value = 120;
-            Weight_numericUpDown.Minimum = 40;
-            Weight_numericUpDown.Maximum = 400;
-            Weight_numericUpDown.Value = 80;
+            Width_numericUpDown.Minimum = 40;
+            Width_numericUpDown.Maximum = 400;
+            Width_numericUpDown.Value = 80;
+            lContainer_size.Text = Main_Container.ToString();
         }
         
 
@@ -38,7 +41,7 @@ namespace Package_master
             int i = lPackage_list.SelectedIndex;
             if (i > -1)
             {
-                gRysuj.DrawRectangle(pen, Packages[i].Size);
+                gDraw.DrawRectangle(pen, Packages[i].Size);
             }
           
         }
@@ -51,7 +54,7 @@ namespace Package_master
         private void button2_Click(object sender, EventArgs e)
         {
             bool can_add = true;
-            Package temp = new Package((int)Height_numeric_updown.Value, (int)Weight_numericUpDown.Value);
+            Package temp = new Package((int)Height_numeric_updown.Value, (int)Width_numericUpDown.Value);
             
             foreach (Package t in Packages)
             {
@@ -193,20 +196,69 @@ namespace Package_master
                     {
                         Add_Form.Activate();
                     }
-                    //int Result = CustomDialog.ShowDialog("Ile chcesz dodać?", "Dodawanie do listy");
-                    ////int Result = Add_Package_to_Container_Form.
-                    //if (Result > 0)
-                    //{
-                    //    Packages_in_container.Add(Result, temp);
-                    //    lContainer_packages.Items.Add(temp.ToString());
-                    //}
+                    
                 }
-            }           
+            }
+            else
+            {
+                MessageBox.Show("Wybierz paczkę z listy zdefiniowanych paczek");
+            }
         }
 
         private void Add_Form_FormClosed(object sender, FormClosedEventArgs e)
         {
             Add_Form = null;
+        }
+
+        private void lContainer_packages_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bDelete__from_Container_Click(object sender, EventArgs e)
+        {
+            int i = lContainer_packages.SelectedIndex;
+            if (i > -1)
+            {
+                Package temp = Packages_in_container.ElementAt(i).Key;
+                Packages_in_container.Remove(temp);
+                lContainer_packages.Items.RemoveAt(i);
+            }
+            else
+            {
+                MessageBox.Show("Wybierz element do usunięcia");
+            }
+        }
+
+        private void bContainer_size_change_Click(object sender, EventArgs e)
+        {
+            //Main_Container
+            if (Change_Form == null)
+            {
+                Change_Form = new Change_Container_Size_Form();
+                Change_Form.Owner = this;               
+                Change_Form.FormClosed += Change_Form_FormClosed;
+                Change_Form.Show();
+            }
+            else
+            {
+                Change_Form.Activate();
+            }
+        }
+
+        private void Change_Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Change_Form = null;
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bArrange_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

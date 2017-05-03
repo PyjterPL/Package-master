@@ -40,6 +40,7 @@
             this.Packages_to_container_numericUpDown.Name = "Packages_to_container_numericUpDown";
             this.Packages_to_container_numericUpDown.Size = new System.Drawing.Size(120, 20);
             this.Packages_to_container_numericUpDown.TabIndex = 0;
+            this.Packages_to_container_numericUpDown.ValueChanged += new System.EventHandler(this.Packages_to_container_numericUpDown_ValueChanged);
             // 
             // bAdd_to_Container
             // 
@@ -69,6 +70,7 @@
             this.Controls.Add(this.bCancel);
             this.Controls.Add(this.bAdd_to_Container);
             this.Controls.Add(this.Packages_to_container_numericUpDown);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Add_Package_to_Container_Form";
