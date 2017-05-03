@@ -14,16 +14,18 @@ namespace Package_master
 
     public partial class Form1 : Form
     {
-        private Graphics gDraw;
+        
         internal List<Package> Packages = new List<Package>();
         internal Dictionary<Package, int> Packages_in_container = new Dictionary<Package, int>();
         Add_Package_to_Container_Form Add_Form;
         Change_Container_Size_Form Change_Form;
-        internal Container Main_Container = new Container();
+        Arrangement_Form arrangement_form;
+        internal Container Main_Container;
         public Form1()
         {
             InitializeComponent();
-            gDraw = Graphics.FromHwnd(this.Handle);
+            Main_Container = new Container();
+            
             Height_numeric_updown.Minimum = 40;
             Height_numeric_updown.Maximum = 400;
             Height_numeric_updown.Value = 120;
@@ -31,20 +33,11 @@ namespace Package_master
             Width_numericUpDown.Maximum = 400;
             Width_numericUpDown.Value = 80;
             lContainer_size.Text = Main_Container.ToString();
+           
         }
         
 
-        private void button1_Click_1(object sender, EventArgs e)
-        {           
-            Pen pen = new Pen(Color.Tomato);
-            
-            int i = lPackage_list.SelectedIndex;
-            if (i > -1)
-            {
-                gDraw.DrawRectangle(pen, Packages[i].Size);
-            }
-          
-        }
+        
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -258,7 +251,31 @@ namespace Package_master
 
         private void bArrange_Click(object sender, EventArgs e)
         {
+            if (arrangement_form == null)
+            {
+               
+                arrangement_form = new Arrangement_Form();
+                arrangement_form.Width = (Main_Container.Width/10)+50;
+                arrangement_form.Height = (Main_Container.Height/10)+50;
+                arrangement_form.panel1.Width = (Main_Container.Width / 10)+10;
+                arrangement_form.panel1.Height = (Main_Container.Height / 10) + 50;
+                arrangement_form.Text = "Kontener " + Main_Container.ToString();
+                
+                arrangement_form.Owner = this;
+                arrangement_form.FormClosed += Arrangement_form_FormClosed;
+               
+                arrangement_form.Show();
+                //arrangement_form.gDraw.DrawRectangle(new Pen(Color.Red),0,0,50,50);
+            }
+            else
+            {
+                Change_Form.Activate();
+            }
+        }
 
+        private void Arrangement_form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            arrangement_form = null;
         }
     }
 }

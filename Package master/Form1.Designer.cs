@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.bRysuj = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.lPackage_list = new System.Windows.Forms.ListBox();
             this.Height_numeric_updown = new System.Windows.Forms.NumericUpDown();
@@ -50,16 +49,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.Width_numericUpDown)).BeginInit();
             this.gDefined_Packages.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // bRysuj
-            // 
-            this.bRysuj.Location = new System.Drawing.Point(688, 31);
-            this.bRysuj.Name = "bRysuj";
-            this.bRysuj.Size = new System.Drawing.Size(75, 23);
-            this.bRysuj.TabIndex = 0;
-            this.bRysuj.Text = "Rysuj";
-            this.bRysuj.UseVisualStyleBackColor = true;
-            this.bRysuj.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // button2
             // 
@@ -245,7 +234,6 @@
             this.Controls.Add(this.bContainerAdd);
             this.Controls.Add(this.lContainer_packages);
             this.Controls.Add(this.gDefined_Packages);
-            this.Controls.Add(this.bRysuj);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "Form1";
@@ -262,8 +250,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button bRysuj;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.NumericUpDown Height_numeric_updown;
         private System.Windows.Forms.Label LHeight;

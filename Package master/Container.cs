@@ -20,6 +20,8 @@ namespace Package_master
             set { size = value; }
         }
 
+        public int Width { get { return size.Width; } }
+        public int Height { get { return size.Height; } }
         public void SetWidth(int w)
         {
             if ( w < 1000 || w > 5000)
