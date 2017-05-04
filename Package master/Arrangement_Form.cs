@@ -14,11 +14,28 @@ namespace Package_master
     {
         internal List<Package> Packages_to_container = new List<Package>();
         private bool First_move;
+
+        private List<Rectangle> All_rectangles = new List<Rectangle>();
+        private List<Rectangle> Packed_rectangles = new List<Rectangle>();
+        private List<Rectangle> Unpackeg_rectangles = new List<Rectangle>();
+        private List<Rectangle> Free_Space_rectangles = new List<Rectangle>();
+
+
+        Random randomGen = new Random();
+        KnownColor[] names = (KnownColor[])Enum.GetValues(typeof(KnownColor));
+        KnownColor randomColorName;
+        Color randomColor; 
+
+
+
         public Arrangement_Form()
         {
             InitializeComponent();
             this.AutoScroll = true;
             First_move = true;
+
+            randomColorName= names[randomGen.Next(names.Length)];
+            randomColor = Color.FromKnownColor(randomColorName);
         }
 
         private void gContainer_Enter(object sender, EventArgs e)
@@ -52,8 +69,10 @@ namespace Package_master
         {
             Form1 Parent_form = (Form1)this.Owner;
             Graphics g = e.Graphics;
-            g.FillRectangle(new SolidBrush(Color.WhiteSmoke), 0, 0, Parent_form.Main_Container.Widht_100(), Parent_form.Main_Container.Height_100());
-            g.DrawRectangle(new Pen(Color.Black), 0,0,Parent_form.Main_Container.Widht_100(), Parent_form.Main_Container.Height_100());
+
+            g.FillRectangle(new SolidBrush(Color.Wheat), 0, 0, Parent_form.Main_Container.Widht_100(), Parent_form.Main_Container.Height_100());
+            g.DrawRectangle(new Pen(Color.Black), 0, 0, Parent_form.Main_Container.Widht_100(), Parent_form.Main_Container.Height_100());
+
             if (First_move)
             {
                 //przenoszenie paczek do wewnętrznej listy
@@ -63,6 +82,7 @@ namespace Package_master
                     {
                         t.Key.ReverseForHeight();//ustawianie paczek "pionowo"
                         Packages_to_container.Add(t.Key);
+                        All_rectangles.Add(new Rectangle(0, 0, (int)t.Key.Widht_100(), (int)t.Key.Height_100()));
                     }
                 }
 
@@ -71,23 +91,18 @@ namespace Package_master
                 {
                     lPackages_in_container_list.Items.Add(p.ToString());
                 }
-
-
-
-               // Rectangle container = new Rectangle(0, 0, (int)Parent_form.Main_Container.Widht_100(), (int)Parent_form.Main_Container.Height_100());
-
-                
                 First_move = false;
             }
+
+
             Point start_point = new Point(0, 0);
             int Width_left = (int)Parent_form.Main_Container.Widht_100();
-            int Height_left=0;
+            int Height_left = 0;
+            int Height_in_container_left = (int)Parent_form.Main_Container.Height_100();
             foreach (Package t in Packages_to_container)
             {
-                //Random randomGen = new Random();
-                // KnownColor[] names = (KnownColor[])Enum.GetValues(typeof(KnownColor));
-                //KnownColor randomColorName = names[randomGen.Next(names.Length)];
-                // Color randomColor = Color.FromKnownColor(randomColorName);
+                
+                if (start_point.Y + t.Height_100() > Height_in_container_left) break;
 
                 if (Width_left >= t.Widht_100())
                 {
@@ -102,15 +117,20 @@ namespace Package_master
                 }
                 else
                 {
+
                     start_point.X = 0;
                     start_point.Y += Height_left;
-                    Width_left= (int)Parent_form.Main_Container.Widht_100();
+                    Width_left = (int)Parent_form.Main_Container.Widht_100();
+                    if (start_point.Y + t.Height_100() > Height_in_container_left) break;
                     g.DrawRectangle(new Pen(Color.Black), start_point.X, start_point.Y, t.Widht_100(), t.Height_100());
+
                     start_point.X += (int)t.Widht_100();
                     Width_left -= (int)t.Widht_100();
                     Height_left = (int)t.Height_100();
+                    //Height_in_container_left -= Height_left;
+                    //if (start_point.Y + t.Height_100() > Height_in_container_left) break;
                 }
-                
+
 
             }
         }
