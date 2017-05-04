@@ -260,26 +260,39 @@ namespace Package_master
 
         private void bArrange_Click(object sender, EventArgs e)
         {
-            if (arrangement_form == null)
+           
+            if (Packages_in_container.Count > 0)
             {
-               
-                arrangement_form = new Arrangement_Form();
-                //arrangement_form.Width = (int)(Main_Container.Widht_100()) +50;
-               // arrangement_form.Height = (int)(Main_Container.Height_100()) +50;
-                arrangement_form.panel1.Width = (int)(Main_Container.Widht_100()) +50;
-                arrangement_form.panel1.Height = (int)(Main_Container.Height_100()) + 100;
-                arrangement_form.lPackages_in_container_list.Left = arrangement_form.panel1.Width;
-                arrangement_form.Text = "Kontener " + Main_Container.ToString();
-                
-                arrangement_form.Owner = this;
-                arrangement_form.FormClosed += Arrangement_form_FormClosed;
-               
-                arrangement_form.Show();
-                //arrangement_form.gDraw.DrawRectangle(new Pen(Color.Red),0,0,50,50);
+                if (arrangement_form == null)
+                {
+
+                    arrangement_form = new Arrangement_Form();
+                    //arrangement_form.Width = (int)(Main_Container.Widht_100()) +50;
+                    // arrangement_form.Height = (int)(Main_Container.Height_100()) +50;
+                    arrangement_form.pDrawningPanel.Width = (int)(Main_Container.Widht_100()) + 50;
+                    arrangement_form.pDrawningPanel.Height = (int)(Main_Container.Height_100()) + 100;
+                    arrangement_form.lPackages_in_container_list.Left = arrangement_form.pDrawningPanel.Width;
+                    arrangement_form.l_all_packages.Left = arrangement_form.pDrawningPanel.Width;
+                    arrangement_form.l_outside_packages.Left = arrangement_form.pDrawningPanel.Width;
+                    arrangement_form.lUnpacked_packages_list.Left = arrangement_form.pDrawningPanel.Width;
+                    arrangement_form.bDeploy.Left = arrangement_form.pDrawningPanel.Width;
+
+                    arrangement_form.Text = "Kontener " + Main_Container.ToString();
+
+                    arrangement_form.Owner = this;
+                    arrangement_form.FormClosed += Arrangement_form_FormClosed;
+
+                    arrangement_form.Show();
+                    //arrangement_form.gDraw.DrawRectangle(new Pen(Color.Red),0,0,50,50);
+                }
+                else
+                {
+                    Change_Form.Activate();
+                }
             }
             else
             {
-                Change_Form.Activate();
+                MessageBox.Show("Dodaj paczki do kontenera");
             }
         }
 
