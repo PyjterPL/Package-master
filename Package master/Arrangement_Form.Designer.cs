@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lPackages_in_container_list = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // panel1
@@ -39,14 +40,22 @@
             this.panel1.TabIndex = 1;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
+            // lPackages_in_container_list
+            // 
+            this.lPackages_in_container_list.FormattingEnabled = true;
+            this.lPackages_in_container_list.Location = new System.Drawing.Point(206, 0);
+            this.lPackages_in_container_list.Name = "lPackages_in_container_list";
+            this.lPackages_in_container_list.Size = new System.Drawing.Size(120, 95);
+            this.lPackages_in_container_list.TabIndex = 2;
+            // 
             // Arrangement_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(491, 445);
+            this.Controls.Add(this.lPackages_in_container_list);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
             this.Name = "Arrangement_Form";
             this.Text = "Kontener";
             this.Load += new System.EventHandler(this.Arrangement_Form_Load);
@@ -59,5 +68,6 @@
         #endregion
 
         internal System.Windows.Forms.Panel panel1;
+        internal System.Windows.Forms.ListBox lPackages_in_container_list;
     }
 }

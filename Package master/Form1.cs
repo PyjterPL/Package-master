@@ -21,6 +21,7 @@ namespace Package_master
         Change_Container_Size_Form Change_Form;
         Arrangement_Form arrangement_form;
         internal Container Main_Container;
+        //tree
         public Form1()
         {
             InitializeComponent();
@@ -64,7 +65,6 @@ namespace Package_master
             if (can_add)
             {
                 Packages.Add(temp);
-                //lPackage_list.Items.Add(temp.ToString());
                 Packages.Sort();
                 lPackage_list.Items.Clear();
                 foreach (Package t in Packages)
@@ -264,10 +264,11 @@ namespace Package_master
             {
                
                 arrangement_form = new Arrangement_Form();
-                arrangement_form.Width = (int)(Main_Container.Widht_100()) +50;
-                arrangement_form.Height = (int)(Main_Container.Height_100()) +50;
-                arrangement_form.panel1.Width = (int)(Main_Container.Widht_100()) +10;
+                //arrangement_form.Width = (int)(Main_Container.Widht_100()) +50;
+               // arrangement_form.Height = (int)(Main_Container.Height_100()) +50;
+                arrangement_form.panel1.Width = (int)(Main_Container.Widht_100()) +50;
                 arrangement_form.panel1.Height = (int)(Main_Container.Height_100()) + 100;
+                arrangement_form.lPackages_in_container_list.Left = arrangement_form.panel1.Width;
                 arrangement_form.Text = "Kontener " + Main_Container.ToString();
                 
                 arrangement_form.Owner = this;

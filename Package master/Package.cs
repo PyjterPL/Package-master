@@ -9,13 +9,6 @@ namespace Package_master
     class Package : IComparable
     {
 
-       // private Rectangle size;
-        //public Rectangle Size
-       // {
-       //     get { return size; }
-       //     set { size = value; }
-      //  }
-
         private float width;
 
         public float Width
@@ -44,7 +37,7 @@ namespace Package_master
 
         public override string ToString()
         {
-            return width.ToString() + "x" + height.ToString();
+            return "H: "+height.ToString() + "x" + " W: "+width.ToString();
         }
 
         public int CompareTo(object obj)
@@ -64,7 +57,15 @@ namespace Package_master
             get { return field; }  //set { field = value; }
         }
 
-        //comp
+        public void ReverseForHeight() //W celu układania paczek podłużnie można tą funkcją je obracać, aby zawsze były układane względem długości
+        {
+            if (this.width > this.height)
+            {
+                float buff = this.width;
+                this.width = this.height;
+                this.height = buff;
+            }
+        }
 
         //konstruktory
         public Package(float Height, float Width)
