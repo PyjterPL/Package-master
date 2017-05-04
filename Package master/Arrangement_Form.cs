@@ -13,7 +13,7 @@ namespace Package_master
     public partial class Arrangement_Form : Form
     {
         internal List<Package> Packages_to_container = new List<Package>();
-        //private bool First_move;
+        private bool First_move;
 
         private List<Rectangle> All_rectangles = new List<Rectangle>();
         private List<Rectangle> Packed_rectangles = new List<Rectangle>();
@@ -32,7 +32,7 @@ namespace Package_master
         {
             InitializeComponent();
             this.AutoScroll = true;
-           
+            First_move = false;
 
             randomColorName= names[randomGen.Next(names.Length)];
             randomColor = Color.FromKnownColor(randomColorName);
@@ -69,7 +69,7 @@ namespace Package_master
 
         private void bDeploy_Click(object sender, EventArgs e)
         {
-            Form1 Parent_form = (Form1)this.Owner;
+                Form1 Parent_form = (Form1)this.Owner;
                 //przenoszenie paczek do wewnętrznej listy
                 foreach (KeyValuePair<Package, int> t in Parent_form.Packages_in_container)
                 {
@@ -111,15 +111,13 @@ namespace Package_master
                         Height_left = (int)All_rectangles[i].Height;
                     }
 
-                    //g.DrawRectangle(new Pen(Color.Black), start_point.X, start_point.Y, t.Width, t.Height);
+                    
 
                     Rectangle temp = All_rectangles[i];
                     temp.X = start_point.X;
                     temp.Y = start_point.Y;
-
-
-
                     All_rectangles[i] = temp;
+
                     Packed_rectangles.Add(All_rectangles[i]);
 
                     start_point.X += (int)All_rectangles[i].Width;
@@ -134,11 +132,16 @@ namespace Package_master
                     if (All_rectangles[i].Width > Width_left)
                     {
                         Unpackeg_rectangles.Add(All_rectangles[i]);
-                        lUnpacked_packages_list.Items.Add(All_rectangles[i].Width.ToString() +"x"+ All_rectangles[i].Height.ToString());
+                        lUnpacked_packages_list.Items.Add(All_rectangles[i].Width.ToString() + "x" + All_rectangles[i].Height.ToString());
                         continue;
                     }
-                    if (start_point.Y + All_rectangles[i].Height > Height_in_container_left) break;
-                    // g.DrawRectangle(new Pen(Color.Black), start_point.X, start_point.Y, t.Width, t.Height);
+                    if (start_point.Y + All_rectangles[i].Height > Height_in_container_left)
+                    {
+                        Unpackeg_rectangles.Add(All_rectangles[i]);
+                        lUnpacked_packages_list.Items.Add(All_rectangles[i].Width.ToString() + "x" + All_rectangles[i].Height.ToString());
+                        continue;
+                    }
+                    
 
                     Rectangle temp = All_rectangles[i];
                     temp.X = start_point.X;
@@ -155,6 +158,7 @@ namespace Package_master
 
             }
             Invalidate(true);
+            First_move = true;
             bDeploy.Dispose();
         }
 
@@ -165,11 +169,25 @@ namespace Package_master
 
             g.FillRectangle(new SolidBrush(Color.Wheat), 0, 0, Parent_form.Main_Container.Widht_100(), Parent_form.Main_Container.Height_100());
             g.DrawRectangle(new Pen(Color.Black), 0, 0, Parent_form.Main_Container.Widht_100(), Parent_form.Main_Container.Height_100());
+            Rectangle prev_rect=new Rectangle();
 
-
+            if (First_move)
+            {
+                prev_rect = Packed_rectangles.First();
+            }
             foreach (Rectangle rect in Packed_rectangles)
             {
+                if (rect.Size != prev_rect.Size)
+                {
+                    randomColorName = names[randomGen.Next(names.Length)];
+                    randomColor = Color.FromKnownColor(randomColorName);
+
+                }
+                g.FillRectangle(new SolidBrush(randomColor), rect);
                 g.DrawRectangle(new Pen(Color.Black), rect);
+               
+                prev_rect = rect;
+
             }
 
         }
