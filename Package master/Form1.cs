@@ -276,6 +276,7 @@ namespace Package_master
                     arrangement_form.l_outside_packages.Left = arrangement_form.pDrawningPanel.Width;
                     arrangement_form.lUnpacked_packages_list.Left = arrangement_form.pDrawningPanel.Width;
                     arrangement_form.bDeploy.Left = arrangement_form.pDrawningPanel.Width;
+                    arrangement_form.cAlternative_sort.Left = arrangement_form.pDrawningPanel.Width;
 
                     arrangement_form.Text = "Kontener " + Main_Container.ToString();
 

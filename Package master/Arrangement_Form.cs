@@ -24,9 +24,9 @@ namespace Package_master
         Random randomGen = new Random();
         KnownColor[] names = (KnownColor[])Enum.GetValues(typeof(KnownColor));
         KnownColor randomColorName;
-        Color randomColor; 
+        Color randomColor;
 
-
+        private bool Alternative_sort = false;
 
         public Arrangement_Form()
         {
@@ -70,17 +70,44 @@ namespace Package_master
             this.Invalidate(true);
         }
 
-        
+
 
         private void bDeploy_Click(object sender, EventArgs e)
         {
+            if (cAlternative_sort.Checked)
+            {
+                Alternative_sort = true;
+            }
+            else
+            {
+                Alternative_sort = false;
+            }
                 Main_Form Parent_form = (Main_Form)this.Owner;
+            Packages_to_container.Clear();
+            All_rectangles.Clear();
+            Packed_rectangles.Clear();
+            Unpackeg_rectangles.Clear();
+            Free_Space_rectangles.Clear();
+            Packages_Colors.Clear();
+            lPackages_in_container_list.Items.Clear();
+            lUnpacked_packages_list.Items.Clear();
+       
+            
                 //przenoszenie paczek do wewnętrznej listy
+
                 foreach (KeyValuePair<Package, int> t in Parent_form.Packages_in_container)
                 {
                     for (int i = 0; i < t.Value; i++)
                     {
+
+                    if (Alternative_sort)
+                    {
+                        t.Key.ReverseForWidth();//ustawianie paczek "poziomo"
+                    }
+                    else
+                    {
                         t.Key.ReverseForHeight();//ustawianie paczek "pionowo"
+                    }
                         Packages_to_container.Add(t.Key);
 
                     }
@@ -93,10 +120,10 @@ namespace Package_master
                 }
                 
 
-                foreach (Package p in Packages_to_container)
-                {
-                    lPackages_in_container_list.Items.Add(p.ToString());
-                }
+                //foreach (Package p in Packages_to_container)
+                //{
+                //    lPackages_in_container_list.Items.Add(p.ToString());
+                //}
             ///////////////////
 
             Point start_point = new Point(0, 0);
@@ -267,7 +294,7 @@ namespace Package_master
             
             foreach (Rectangle rect in Packed_rectangles)
             {
-                if (!prev_rect.Contains(rect))// != prev_rect.Size)
+                if (!prev_rect.Contains(rect))
                 {
                    randomColorName = names[randomGen.Next(names.Length)];
                     while (KnownColor.Black == randomColorName)
@@ -282,11 +309,33 @@ namespace Package_master
                 prev_rect = rect;
 
             }
+
+            Dictionary<Rectangle, int> Packed_list = new Dictionary<Rectangle, int>();
+            foreach (Rectangle packed in Packed_rectangles)
+            {
+                Rectangle temp = packed;
+                temp.X = 0;
+                temp.Y = 0;
+                
+                if (Packed_list.ContainsKey(temp))
+                {
+
+                    Packed_list[temp]++;
+                    continue;
+                }
+                Packed_list.Add(temp, 1);
+            }
+            foreach (KeyValuePair<Rectangle, int> pair in Packed_list)
+            {
+                lPackages_in_container_list.Items.Add("ID: " + pair.Value.ToString() + " "+pair.Key.Width.ToString()+" "+pair.Key.Height.ToString());
+            }
             //koniec kolorowania
             Invalidate(true);
             First_move = true;
-            bDeploy.Dispose();
+            
         }
+
+       
 
         private void pDraw(object sender, PaintEventArgs e)
         {
@@ -316,11 +365,11 @@ namespace Package_master
                 prev_rect = rect;
             }
 
-            //foreach (Rectangle fs in Free_Space_rectangles)
-            //{
-            //    g.FillRectangle(new SolidBrush(Color.Red), fs);
-            //    g.DrawRectangle(new Pen(Color.White), fs);
-            //}
+            foreach (Rectangle fs in Free_Space_rectangles)
+            {
+               // g.FillRectangle(new SolidBrush(Color.Red), fs);
+              //  g.DrawRectangle(new Pen(Color.White), fs);
+            }
         }
     }
 }

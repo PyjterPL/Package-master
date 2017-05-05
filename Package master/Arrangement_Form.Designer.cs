@@ -34,6 +34,7 @@
             this.l_outside_packages = new System.Windows.Forms.Label();
             this.lUnpacked_packages_list = new System.Windows.Forms.ListBox();
             this.bDeploy = new System.Windows.Forms.Button();
+            this.cAlternative_sort = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // pDrawningPanel
@@ -47,7 +48,7 @@
             // lPackages_in_container_list
             // 
             this.lPackages_in_container_list.FormattingEnabled = true;
-            this.lPackages_in_container_list.Location = new System.Drawing.Point(206, 60);
+            this.lPackages_in_container_list.Location = new System.Drawing.Point(205, 79);
             this.lPackages_in_container_list.Name = "lPackages_in_container_list";
             this.lPackages_in_container_list.Size = new System.Drawing.Size(120, 95);
             this.lPackages_in_container_list.TabIndex = 2;
@@ -55,7 +56,7 @@
             // l_all_packages
             // 
             this.l_all_packages.AutoSize = true;
-            this.l_all_packages.Location = new System.Drawing.Point(206, 44);
+            this.l_all_packages.Location = new System.Drawing.Point(205, 63);
             this.l_all_packages.Name = "l_all_packages";
             this.l_all_packages.Size = new System.Drawing.Size(89, 13);
             this.l_all_packages.TabIndex = 3;
@@ -64,7 +65,7 @@
             // l_outside_packages
             // 
             this.l_outside_packages.AutoSize = true;
-            this.l_outside_packages.Location = new System.Drawing.Point(201, 165);
+            this.l_outside_packages.Location = new System.Drawing.Point(200, 184);
             this.l_outside_packages.Name = "l_outside_packages";
             this.l_outside_packages.Size = new System.Drawing.Size(124, 13);
             this.l_outside_packages.TabIndex = 4;
@@ -73,7 +74,7 @@
             // lUnpacked_packages_list
             // 
             this.lUnpacked_packages_list.FormattingEnabled = true;
-            this.lUnpacked_packages_list.Location = new System.Drawing.Point(205, 181);
+            this.lUnpacked_packages_list.Location = new System.Drawing.Point(204, 200);
             this.lUnpacked_packages_list.Name = "lUnpacked_packages_list";
             this.lUnpacked_packages_list.Size = new System.Drawing.Size(120, 95);
             this.lUnpacked_packages_list.TabIndex = 5;
@@ -88,11 +89,22 @@
             this.bDeploy.UseVisualStyleBackColor = true;
             this.bDeploy.Click += new System.EventHandler(this.bDeploy_Click);
             // 
+            // cAlternative_sort
+            // 
+            this.cAlternative_sort.AutoSize = true;
+            this.cAlternative_sort.Location = new System.Drawing.Point(208, 42);
+            this.cAlternative_sort.Name = "cAlternative_sort";
+            this.cAlternative_sort.Size = new System.Drawing.Size(141, 17);
+            this.cAlternative_sort.TabIndex = 7;
+            this.cAlternative_sort.Text = "Ustawienie alternatywne";
+            this.cAlternative_sort.UseVisualStyleBackColor = true;
+            // 
             // Arrangement_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(491, 445);
+            this.Controls.Add(this.cAlternative_sort);
             this.Controls.Add(this.bDeploy);
             this.Controls.Add(this.lUnpacked_packages_list);
             this.Controls.Add(this.l_outside_packages);
@@ -118,5 +130,6 @@
         internal System.Windows.Forms.Label l_outside_packages;
         internal System.Windows.Forms.ListBox lUnpacked_packages_list;
         internal System.Windows.Forms.Button bDeploy;
+        internal System.Windows.Forms.CheckBox cAlternative_sort;
     }
 }

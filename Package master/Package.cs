@@ -66,6 +66,15 @@ namespace Package_master
                 this.height = buff;
             }
         }
+        public void ReverseForWidth() //W celu układania paczek podłużnie można tą funkcją je obracać, aby zawsze były układane względem długości
+        {
+            if (this.width < this.height)
+            {
+                float buff = this.width;
+                this.width = this.height;
+                this.height = buff;
+            }
+        }
 
         //konstruktory
         public Package(float Height, float Width)
