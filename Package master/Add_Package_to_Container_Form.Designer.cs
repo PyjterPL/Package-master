@@ -78,8 +78,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Dodaj do kontenera";
             this.Load += new System.EventHandler(this.Add_Package_to_Container_Form_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Add_Package_to_Container_Form_KeyDown);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Add_Package_to_Container_Form_KeyPress);
+           // this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Add_Package_to_Container_Form_KeyDown);
+            //this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Add_Package_to_Container_Form_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.Packages_to_container_numericUpDown)).EndInit();
             this.ResumeLayout(false);
 

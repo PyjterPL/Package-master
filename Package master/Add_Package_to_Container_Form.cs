@@ -16,7 +16,7 @@ namespace Package_master
         {
             InitializeComponent();
             Packages_to_container_numericUpDown.Minimum = 1;
-            Packages_to_container_numericUpDown.Maximum = Int32.MaxValue;
+            Packages_to_container_numericUpDown.Maximum = Int32.MaxValue;//Żeby nie przekroczyć zakresu
 
         }
 
@@ -66,20 +66,6 @@ namespace Package_master
             }
         }
 
-        private void Add_Package_to_Container_Form_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)13)
-            {
-                bAdd_to_Container_Click(sender, e);
-            }
-        }
-
-        private void Add_Package_to_Container_Form_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                bAdd_to_Container_Click(sender, e);
-            }
-        }
+       
     }
 }

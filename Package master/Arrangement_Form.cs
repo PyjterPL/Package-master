@@ -21,25 +21,28 @@ namespace Package_master
         private List<Rectangle> Free_Space_rectangles = new List<Rectangle>();
         private List<Color> Packages_Colors = new List<Color>();
 
-        Random randomGen = new Random();
+        Random randomGen = new Random();//Do generowania losowych kolorów paczek
         KnownColor[] names = (KnownColor[])Enum.GetValues(typeof(KnownColor));
         KnownColor randomColorName;
         Color randomColor;
 
         private bool Alternative_sort = false;
-
+        private bool Free_spaces_viev = false;
         public Arrangement_Form()
         {
             InitializeComponent();
             this.AutoScroll = true;
             First_move = false;
 
-            randomColorName= names[randomGen.Next(names.Length)];
+            randomColorName = names[randomGen.Next(names.Length)];
             while (KnownColor.Black == randomColorName)
             {
                 randomColorName = names[randomGen.Next(names.Length)];
             }
             randomColor = Color.FromKnownColor(randomColorName);
+            c_Free_spaces_viev.Text = "Wolne przestrzenie\r\n(biała obwódka, czerwone wypełnienie)";
+            c_Free_spaces_viev.Dispose();//Jeśli chcemy mieć widok tego, co program uważa za wolne przestrzenie ->zakomentować tą linijkę
+            //Jeszcze generuje pomniejsze błędy
 
         }
 
@@ -48,7 +51,7 @@ namespace Package_master
 
         }
 
-       
+
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -62,7 +65,7 @@ namespace Package_master
 
         private void Arrangement_Form_Paint(object sender, PaintEventArgs e)
         {
-           
+
         }
 
         private void Arrangement_Form_Scroll(object sender, ScrollEventArgs e)
@@ -74,7 +77,8 @@ namespace Package_master
 
         private void bDeploy_Click(object sender, EventArgs e)
         {
-            if (cAlternative_sort.Checked)
+            //W momencie kliknięcia rozpoczyna się całość algorytmu ustawiania paczek
+            if (cAlternative_sort.Checked)//Sprawdzenie wersji pakowania
             {
                 Alternative_sort = true;
             }
@@ -82,7 +86,16 @@ namespace Package_master
             {
                 Alternative_sort = false;
             }
-                Main_Form Parent_form = (Main_Form)this.Owner;
+            if (c_Free_spaces_viev.Checked)
+            {
+                Free_spaces_viev = true;
+            }
+            else
+            {
+                Free_spaces_viev = false;
+            }
+            Main_Form Parent_form = (Main_Form)this.Owner; //Uzyskanie dostępu do składowych okna głównego
+            //Czyszczenie wszystkich kontenerów danych
             Packages_to_container.Clear();
             All_rectangles.Clear();
             Packed_rectangles.Clear();
@@ -91,14 +104,14 @@ namespace Package_master
             Packages_Colors.Clear();
             lPackages_in_container_list.Items.Clear();
             lUnpacked_packages_list.Items.Clear();
-       
-            
-                //przenoszenie paczek do wewnętrznej listy
+            //Koniec czyszczenia
 
-                foreach (KeyValuePair<Package, int> t in Parent_form.Packages_in_container)
+
+            //Przenoszenie paczek do wewnętrznej listy z list okna głównego
+            foreach (KeyValuePair<Package, int> t in Parent_form.Packages_in_container)
+            {
+                for (int i = 0; i < t.Value; i++)
                 {
-                    for (int i = 0; i < t.Value; i++)
-                    {
 
                     if (Alternative_sort)
                     {
@@ -108,24 +121,18 @@ namespace Package_master
                     {
                         t.Key.ReverseForHeight();//ustawianie paczek "pionowo"
                     }
-                        Packages_to_container.Add(t.Key);
+                    Packages_to_container.Add(t.Key);
 
-                    }
                 }
+            }
 
-                Packages_to_container.Sort();//sortowanie od najdłuższych do najkrótszych
-                foreach (Package x in Packages_to_container)
-                {
-                    All_rectangles.Add(new Rectangle(0, 0, (int)x.Widht_100(), (int)x.Height_100()));
-                }
-                
+            Packages_to_container.Sort();//sortowanie od najdłuższych do najkrótszych
+            foreach (Package x in Packages_to_container)
+            {
+                All_rectangles.Add(new Rectangle(0, 0, (int)x.Widht_100(), (int)x.Height_100()));
+            }
 
-                //foreach (Package p in Packages_to_container)
-                //{
-                //    lPackages_in_container_list.Items.Add(p.ToString());
-                //}
-            ///////////////////
-
+            //Ustawianie parametów początkowych 
             Point start_point = new Point(0, 0);
             int Width_left = (int)Parent_form.Main_Container.Widht_100();
             int Height_left = 0;
@@ -134,24 +141,21 @@ namespace Package_master
             int Rect_in_row = 0;
             int Prev_row_count = 0;
 
-           
 
+            //Przeglądanie wszystkich paczek
             for (int i = 0; i < All_rectangles.Count; i++)
             {
                 //Jeśli nie mieści się w pozostałej wysokości kontenera to wrzuć do listy niespakowanych
                 if (start_point.Y + All_rectangles[i].Height > Height_in_container_left)
                 {
                     Unpackeg_rectangles.Add(All_rectangles[i]);
-                    //lUnpacked_packages_list.Items.Add(All_rectangles[i].Width.ToString() + "x" + All_rectangles[i].Height.ToString());
                     continue;
-                } 
+                }
 
-
-
-                //Jeśli mieści się na szerokość to działaj
+                //Jeśli mieści się na szerokość to idź dalej
                 if (Width_left >= All_rectangles[i].Width)
                 {
-                    //ustala nową wysokość rzędu
+                    //Ustala nową wysokość rzędu paczek
                     if (All_rectangles[i].Height > Height_left)
                     {
                         Height_left = (int)All_rectangles[i].Height;
@@ -162,14 +166,12 @@ namespace Package_master
                     temp.Y = start_point.Y;
                     All_rectangles[i] = temp;
 
-
-
                     Packed_rectangles.Add(All_rectangles[i]);
                     //przesuwa początek rysowania
                     start_point.X += (int)All_rectangles[i].Width;
                     //odejmuje pozostałą szerokość
                     Width_left -= (int)All_rectangles[i].Width;
-                    Rect_in_row++;
+                    Rect_in_row++;//Zwiększa ilość paczek w rzędzie
                 }
                 else //Przejście do nowego rzędu
                 {
@@ -177,9 +179,9 @@ namespace Package_master
                     //Szukanie i dodawanie wolnych prostokątów 
                     for (int j = 0; j < Rect_in_row; j++)
                     {
-                        
+
                         Rectangle free_space = new Rectangle();
-                        if (j == Rect_in_row - 1)
+                        if (j == Rect_in_row - 1)//Jeśli jest to ostatni element w rzędzie to oblicza wolne pole inaczej
                         {
                             if (Packed_rectangles[Prev_row_count].Width > 0)
                             {
@@ -189,7 +191,7 @@ namespace Package_master
                                 free_space.Width = Width_left;
                             }
                         }
-                        else
+                        else //Dla każdego poza ostatnim w rzędzie oblicza wolne pole w rzędzie od największej paczki
                         {
                             if (Packed_rectangles[Prev_row_count].Width > 0)
                             {
@@ -206,41 +208,41 @@ namespace Package_master
                     Rect_in_row = 0;
                     //Koniec szukania wolnych prostokątów 
 
-                    //Szukanie wolnego miejsca dla prostokątu:
-                    for(int f =0;f<Free_Space_rectangles.Count;f++)// Rectangle free in Free_Space_rectangles)
+                    //Szukanie wolnego miejsca dla prostokątu w momencie przechodzenia do nowego rzędu paczek
+                    for (int f = 0; f < Free_Space_rectangles.Count; f++)
                     {
                         Rectangle temporary = All_rectangles[i];
                         temporary.X = Free_Space_rectangles[f].X;
                         temporary.Y = Free_Space_rectangles[f].Y;
 
-                        if (Free_Space_rectangles[f].Contains(temporary))
-                            {
-                            
+                        if (Free_Space_rectangles[f].Contains(temporary))//Jeśli obszar który chcemy dodać mieści się w którymś z wolnych prostokątów to umieść go tam 
+                        {                                                //i usuń wolny obszar. Potem podziel to co zostało na nowe, mniejsze wolne obszary
+
                             All_rectangles[i] = temporary;
                             Packed_rectangles.Add(All_rectangles[i]);
                             Rect_in_row++;
-                           
+
                             free_space_filled = true;
                             Rectangle devided_free_space1 = new Rectangle();
                             Rectangle devided_free_space2 = new Rectangle();
-                            //Dodawanie "dolnego"prostokąta 
+                            //Dodawanie "dolnego" wolnego prostokąta 
 
                             devided_free_space1.X = temporary.X;
                             devided_free_space1.Y = temporary.Y + temporary.Height;
                             devided_free_space1.Width = Free_Space_rectangles[f].Width;
                             devided_free_space1.Height = Free_Space_rectangles[f].Height - temporary.Height;
-                            
-                            //dodawanie bocznego prostokąta
-                            devided_free_space2.X = temporary.X + temporary.Width;//działa
+
+                            //dodawanie "bocznego" wolnego prostokąta
+                            devided_free_space2.X = temporary.X + temporary.Width;
                             devided_free_space2.Y = temporary.Y;
                             devided_free_space2.Height = temporary.Height;
                             devided_free_space2.Width = (int)Parent_form.Main_Container.Widht_100() - devided_free_space2.X;
 
                             Free_Space_rectangles.RemoveAt(f);
                             Free_Space_rectangles.Add(devided_free_space1);
-                            Free_Space_rectangles.Add(devided_free_space2); //dobrze wykrywany
+                            Free_Space_rectangles.Add(devided_free_space2); 
                             break;
-                            }
+                        }
                     }
 
 
@@ -254,13 +256,11 @@ namespace Package_master
                         if (All_rectangles[i].Width > Width_left)
                         {
                             Unpackeg_rectangles.Add(All_rectangles[i]);
-                            //lUnpacked_packages_list.Items.Add(All_rectangles[i].Width.ToString() + "x" + All_rectangles[i].Height.ToString());
                             continue;
                         }
                         if (start_point.Y + All_rectangles[i].Height > Height_in_container_left)
                         {
                             Unpackeg_rectangles.Add(All_rectangles[i]);
-                            //lUnpacked_packages_list.Items.Add(All_rectangles[i].Width.ToString() + "x" + All_rectangles[i].Height.ToString());
                             continue;
                         }
 
@@ -283,21 +283,21 @@ namespace Package_master
             //Kolorowanie poszczególnych paczek
             Rectangle prev_rect = Packed_rectangles.First();
 
-            
+
             randomColorName = names[randomGen.Next(names.Length)];
-            while (KnownColor.Black == randomColorName)
+            while (KnownColor.Black == randomColorName)//warunek nie działa, do poprawy
             {
                 randomColorName = names[randomGen.Next(names.Length)];
             }
             randomColor = Color.FromKnownColor(randomColorName);
             Packages_Colors.Add(randomColor);
-            
+
             foreach (Rectangle rect in Packed_rectangles)
             {
                 if (!prev_rect.Contains(rect))
                 {
-                   randomColorName = names[randomGen.Next(names.Length)];
-                    while (KnownColor.Black == randomColorName)
+                    randomColorName = names[randomGen.Next(names.Length)];
+                    while (KnownColor.Black == randomColorName)//warunek nie działa, do poprawy
                     {
                         randomColorName = names[randomGen.Next(names.Length)];
                     }
@@ -309,14 +309,16 @@ namespace Package_master
                 prev_rect = rect;
 
             }
+            //Koniec kolorowania paczek
 
+            //Przypisywanie umieszczonych i nieumieszczonych w kontenerze paczek do poszczególnych list
             Dictionary<Rectangle, int> Packed_list = new Dictionary<Rectangle, int>();
             foreach (Rectangle packed in Packed_rectangles)
             {
                 Rectangle temp = packed;
                 temp.X = 0;
                 temp.Y = 0;
-                
+
                 if (Packed_list.ContainsKey(temp))
                 {
 
@@ -327,7 +329,7 @@ namespace Package_master
             }
             foreach (KeyValuePair<Rectangle, int> pair in Packed_list)
             {
-                lPackages_in_container_list.Items.Add("ID: " + pair.Value.ToString() + " "+pair.Key.Width.ToString()+" "+pair.Key.Height.ToString());
+                lPackages_in_container_list.Items.Add("Ilość: " + pair.Value.ToString() + " Wymiary: " + pair.Key.Width.ToString() + " x " + pair.Key.Height.ToString());
             }
 
             Dictionary<Rectangle, int> Unpacked_list = new Dictionary<Rectangle, int>();
@@ -347,17 +349,17 @@ namespace Package_master
             }
             foreach (KeyValuePair<Rectangle, int> pair in Unpacked_list)
             {
-                lUnpacked_packages_list.Items.Add("ID: " + pair.Value.ToString() + " " + pair.Key.Width.ToString() + " " + pair.Key.Height.ToString());
+                lUnpacked_packages_list.Items.Add("Ilość: " + pair.Value.ToString() + " Wymiary: " + pair.Key.Width.ToString() + " x " + pair.Key.Height.ToString());
             }
             l_outside_packages.Text = "Paczki poza kontenerem: " + Unpackeg_rectangles.Count.ToString();
             l_in_container_packages.Text = "Paczek w kontenerze: " + Packed_rectangles.Count.ToString();
-            //koniec kolorowania
+            
             Invalidate(true);
             First_move = true;
-            
+
         }
 
-       
+
 
         private void pDraw(object sender, PaintEventArgs e)
         {
@@ -368,12 +370,12 @@ namespace Package_master
             g.DrawRectangle(new Pen(Color.Black), 0, 0, Parent_form.Main_Container.Widht_100(), Parent_form.Main_Container.Height_100());
 
             int i = 0;
-            Rectangle prev_rect=new Rectangle();
+            Rectangle prev_rect = new Rectangle();
             if (First_move)
             {
                 prev_rect = Packed_rectangles.First();
             }
-           
+
             foreach (Rectangle rect in Packed_rectangles)
             {
                 if (rect.Size != prev_rect.Size)
@@ -381,18 +383,19 @@ namespace Package_master
                     i++;
                 }
                 g.FillRectangle(new SolidBrush(Packages_Colors[i]), rect);
-                
+
                 g.DrawRectangle(new Pen(Color.Black), rect);
-                
+
                 prev_rect = rect;
             }
-
-            foreach (Rectangle fs in Free_Space_rectangles)
+            if (Free_spaces_viev)
             {
-               // g.FillRectangle(new SolidBrush(Color.Red), fs);
-              //  g.DrawRectangle(new Pen(Color.White), fs);
+                foreach (Rectangle fs in Free_Space_rectangles)
+                {
+                    g.FillRectangle(new SolidBrush(Color.Red), fs);
+                    g.DrawRectangle(new Pen(Color.White), fs);
+                }
             }
-            //l_outside_packages.Text="Paczki poza kontenerem" + 
         }
 
         private void l_all_packages_Click(object sender, EventArgs e)

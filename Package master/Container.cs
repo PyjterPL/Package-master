@@ -6,20 +6,9 @@ using System.Threading.Tasks;
 using System.Drawing;
 namespace Package_master
 {
+    //Klasa reprezentująca kontener
     class Container
-    {
-        //- kontener jest prostokątem, jego rozmiar powinien być konfigurowalny
-        //(w zakresie długość: 5-20 m szerokość: 1 – 5 m - domyślnie 13,6 x 2,4),
-
-        //private Rectangle Size { get; set; }
-        //private Rectangle size;
-
-        //public Rectangle Size
-        //{
-        //    get { return size; }
-        //    set { size = value; }
-        //}
-
+    {       
         private float height;
 
         public float Height
@@ -56,22 +45,13 @@ namespace Package_master
                 }
             }
         }
-
-        public float Widht_100()
-            {
-                return width * 100;
-            }
-        public float Height_100()
-        {
-            return height * 100;
-        }
-
+        //Konstruktory
         public Container(float Height, float Width)
         {
             if (Height > 20 || Height < 5 || Width > 1 || Width < 5)
             {
                 throw new Exception("Podano złe rozmiary kontenera!");
-                
+
             }
             else
             {
@@ -90,6 +70,16 @@ namespace Package_master
             this.height = 13.6f;
             this.width = 2.4f;
         }
+        public float Widht_100()
+            {
+                return width * 100;
+            }
+        public float Height_100()
+        {
+            return height * 100;
+        }
+
+        
 
         public override string ToString()
         {

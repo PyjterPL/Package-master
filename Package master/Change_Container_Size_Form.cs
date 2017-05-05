@@ -34,7 +34,7 @@ namespace Package_master
 
         }
 
-        private void bChange_Click(object sender, EventArgs e)
+        private void bChange_Click(object sender, EventArgs e)//Ustawia rozmiar kontenera na wybrany w oknie
         {
             Main_Form form = (Main_Form)this.Owner;
 

@@ -17,16 +17,17 @@ namespace Package_master
         
         internal List<Package> Packages = new List<Package>();
         internal Dictionary<Package, int> Packages_in_container = new Dictionary<Package, int>();
-        Add_Package_to_Container_Form Add_Form;
-        Change_Container_Size_Form Change_Form;
-        Arrangement_Form arrangement_form;
+        Add_Package_to_Container_Form Add_Form;//Forma do dodawania nowych paczek
+        Change_Container_Size_Form Change_Form;//Forma do zmiany rozmiarów kontenera
+        Arrangement_Form arrangement_form; //Forma do wizualizacji rozmieszczenia paczek
         internal Container Main_Container;
-        //tree
+
+
+
         public Main_Form()
         {
             InitializeComponent();
             Main_Container = new Container();
-            //Packages.Sort()
             Height_numeric_updown.Minimum = (decimal)0.4;
             Height_numeric_updown.Maximum = 4;
             Height_numeric_updown.Value = (decimal)1.2;
@@ -35,52 +36,9 @@ namespace Package_master
             Width_numericUpDown.Value = (decimal)0.8;
             Width_numericUpDown.Increment = (decimal)0.01;
             Height_numeric_updown.Increment = (decimal)0.01;
-            lContainer_size.Text = Main_Container.ToString();
-            
-           
-        }
-        
-
-        
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+            lContainer_size.Text = Main_Container.ToString();  
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            bool can_add = true;
-            Package temp = new Package((float)Height_numeric_updown.Value,(float) Width_numericUpDown.Value);
-            
-            foreach (Package t in Packages)
-            {
-                if (t.ToString() == temp.ToString())
-                {
-                    MessageBox.Show("Taka paczka została już zdefiniowana");
-                    can_add = false;
-                }
-            }
-
-            if (can_add)
-            {
-                Packages.Add(temp);
-                Packages.Sort();
-                lPackage_list.Items.Clear();
-                foreach (Package t in Packages)
-                {
-                    lPackage_list.Items.Add(t.ToString());
-                }
-            }   
-            
-        }
-
-     
-
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -127,7 +85,7 @@ namespace Package_master
         }
         
 
-        private void bLoad_Click(object sender, EventArgs e)
+        private void bLoad_Click(object sender, EventArgs e)//Wczytywanie z pliku
         {
 
             if (File.Exists("Package_list.txt"))
@@ -234,7 +192,7 @@ namespace Package_master
 
         private void bContainer_size_change_Click(object sender, EventArgs e)
         {
-            //Main_Container
+            
             if (Change_Form == null)
             {
                 Change_Form = new Change_Container_Size_Form();
@@ -267,16 +225,15 @@ namespace Package_master
                 {
 
                     arrangement_form = new Arrangement_Form();
-                    //arrangement_form.Width = (int)(Main_Container.Widht_100()) +50;
-                    // arrangement_form.Height = (int)(Main_Container.Height_100()) +50;
-                    arrangement_form.pDrawningPanel.Width = (int)(Main_Container.Widht_100()) + 50;
-                    arrangement_form.pDrawningPanel.Height = (int)(Main_Container.Height_100()) + 100;
-                    arrangement_form.lPackages_in_container_list.Left = arrangement_form.pDrawningPanel.Width;
-                    arrangement_form.l_in_container_packages.Left = arrangement_form.pDrawningPanel.Width;
-                    arrangement_form.l_outside_packages.Left = arrangement_form.pDrawningPanel.Width;
-                    arrangement_form.lUnpacked_packages_list.Left = arrangement_form.pDrawningPanel.Width;
-                    arrangement_form.bDeploy.Left = arrangement_form.pDrawningPanel.Width;
-                    arrangement_form.cAlternative_sort.Left = arrangement_form.pDrawningPanel.Width;
+                    arrangement_form.pDrawningPanel.Width = (int)(Main_Container.Widht_100()+1);//;+ 50;
+                    arrangement_form.pDrawningPanel.Height = (int)(Main_Container.Height_100()+1);// + 100;
+                    arrangement_form.lPackages_in_container_list.Left = arrangement_form.pDrawningPanel.Width+5;
+                    arrangement_form.l_in_container_packages.Left = arrangement_form.pDrawningPanel.Width + 5;
+                    arrangement_form.l_outside_packages.Left = arrangement_form.pDrawningPanel.Width + 5;
+                    arrangement_form.lUnpacked_packages_list.Left = arrangement_form.pDrawningPanel.Width + 5;
+                    arrangement_form.bDeploy.Left = arrangement_form.pDrawningPanel.Width + 5;
+                    arrangement_form.cAlternative_sort.Left = arrangement_form.pDrawningPanel.Width + 5;
+                    arrangement_form.c_Free_spaces_viev.Left = arrangement_form.pDrawningPanel.Width + 5;
 
                     arrangement_form.Text = "Kontener " + Main_Container.ToString();
 
@@ -284,7 +241,6 @@ namespace Package_master
                     arrangement_form.FormClosed += Arrangement_form_FormClosed;
 
                     arrangement_form.Show();
-                    //arrangement_form.gDraw.DrawRectangle(new Pen(Color.Red),0,0,50,50);
                 }
                 else
                 {
@@ -311,6 +267,32 @@ namespace Package_master
         {
             Packages_in_container.Clear();
             lContainer_packages.Items.Clear();
+        }
+
+        private void Add_Define_package_click(object sender, EventArgs e)
+        {
+            bool can_add = true;
+            Package temp = new Package((float)Height_numeric_updown.Value, (float)Width_numericUpDown.Value);
+
+            foreach (Package t in Packages)
+            {
+                if (t.ToString() == temp.ToString())
+                {
+                    MessageBox.Show("Taka paczka została już zdefiniowana");
+                    can_add = false;
+                }
+            }
+
+            if (can_add)
+            {
+                Packages.Add(temp);
+                Packages.Sort();
+                lPackage_list.Items.Clear();
+                foreach (Package t in Packages)
+                {
+                    lPackage_list.Items.Add(t.ToString());
+                }
+            }
         }
     }
 }

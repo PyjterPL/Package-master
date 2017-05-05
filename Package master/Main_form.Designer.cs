@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button2 = new System.Windows.Forms.Button();
+            this.b_Add_Defined_Package = new System.Windows.Forms.Button();
             this.lPackage_list = new System.Windows.Forms.ListBox();
             this.Height_numeric_updown = new System.Windows.Forms.NumericUpDown();
             this.LHeight = new System.Windows.Forms.Label();
@@ -51,16 +51,16 @@
             this.gDefined_Packages.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button2
+            // b_Add_Defined_Package
             // 
-            this.button2.AccessibleName = "Dodaj paczkę";
-            this.button2.Location = new System.Drawing.Point(153, 19);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(94, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Dodaj paczkę";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.b_Add_Defined_Package.AccessibleName = "Dodaj paczkę";
+            this.b_Add_Defined_Package.Location = new System.Drawing.Point(153, 19);
+            this.b_Add_Defined_Package.Name = "b_Add_Defined_Package";
+            this.b_Add_Defined_Package.Size = new System.Drawing.Size(94, 23);
+            this.b_Add_Defined_Package.TabIndex = 2;
+            this.b_Add_Defined_Package.Text = "Dodaj paczkę";
+            this.b_Add_Defined_Package.UseVisualStyleBackColor = true;
+            this.b_Add_Defined_Package.Click += new System.EventHandler(this.Add_Define_package_click);
             // 
             // lPackage_list
             // 
@@ -79,7 +79,7 @@
             this.Height_numeric_updown.Name = "Height_numeric_updown";
             this.Height_numeric_updown.Size = new System.Drawing.Size(120, 20);
             this.Height_numeric_updown.TabIndex = 4;
-            this.Height_numeric_updown.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+           // this.Height_numeric_updown.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // LHeight
             // 
@@ -143,7 +143,7 @@
             // 
             this.gDefined_Packages.Controls.Add(this.lPackage_list);
             this.gDefined_Packages.Controls.Add(this.bLoad);
-            this.gDefined_Packages.Controls.Add(this.button2);
+            this.gDefined_Packages.Controls.Add(this.b_Add_Defined_Package);
             this.gDefined_Packages.Controls.Add(this.bSave);
             this.gDefined_Packages.Controls.Add(this.Height_numeric_updown);
             this.gDefined_Packages.Controls.Add(this.BDelete_Package);
@@ -264,7 +264,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button b_Add_Defined_Package;
         private System.Windows.Forms.NumericUpDown Height_numeric_updown;
         private System.Windows.Forms.Label LHeight;
         private System.Windows.Forms.Label label1;
