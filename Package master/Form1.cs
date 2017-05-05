@@ -12,7 +12,7 @@ using System.IO;
 namespace Package_master
 {
 
-    public partial class Form1 : Form
+    public partial class Main_Form : Form
     {
         
         internal List<Package> Packages = new List<Package>();
@@ -22,7 +22,7 @@ namespace Package_master
         Arrangement_Form arrangement_form;
         internal Container Main_Container;
         //tree
-        public Form1()
+        public Main_Form()
         {
             InitializeComponent();
             Main_Container = new Container();
@@ -304,6 +304,12 @@ namespace Package_master
         private void domainUpDown1_SelectedItemChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void bClear_Container_Click(object sender, EventArgs e)
+        {
+            Packages_in_container.Clear();
+            lContainer_packages.Items.Clear();
         }
     }
 }

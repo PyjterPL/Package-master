@@ -69,7 +69,7 @@ namespace Package_master
 
         private void bDeploy_Click(object sender, EventArgs e)
         {
-                Form1 Parent_form = (Form1)this.Owner;
+                Main_Form Parent_form = (Main_Form)this.Owner;
                 //przenoszenie paczek do wewnętrznej listy
                 foreach (KeyValuePair<Package, int> t in Parent_form.Packages_in_container)
                 {
@@ -99,36 +99,80 @@ namespace Package_master
             int Height_left = 0;
             int Height_in_container_left = (int)Parent_form.Main_Container.Height_100();
 
+            int Rect_in_row = 0;
+            int Prev_row_count = 0;
             for (int i = 0; i < All_rectangles.Count; i++)
             {
-
-                if (start_point.Y + All_rectangles[i].Height > Height_in_container_left) break;
-
+                //Jeśli nie mieści się w pozostałej wysokości kontenera to wrzuć do listy niespakowanych
+                if (start_point.Y + All_rectangles[i].Height > Height_in_container_left)
+                {
+                    Unpackeg_rectangles.Add(All_rectangles[i]);
+                    lUnpacked_packages_list.Items.Add(All_rectangles[i].Width.ToString() + "x" + All_rectangles[i].Height.ToString());
+                    continue;
+                } 
+                //Jeśli mieści się na szerokość to działaj
                 if (Width_left >= All_rectangles[i].Width)
                 {
+                    //ustala nową wysokość rzędu
                     if (All_rectangles[i].Height > Height_left)
                     {
                         Height_left = (int)All_rectangles[i].Height;
                     }
-
-                    
-
+                    //Zmienia współrzędne prostokąta do rysowania
                     Rectangle temp = All_rectangles[i];
                     temp.X = start_point.X;
                     temp.Y = start_point.Y;
                     All_rectangles[i] = temp;
 
-                    Packed_rectangles.Add(All_rectangles[i]);
 
+
+                    Packed_rectangles.Add(All_rectangles[i]);
+                    //przesuwa początek rysowania
                     start_point.X += (int)All_rectangles[i].Width;
+                    //odejmuje pozostałą szerokość
                     Width_left -= (int)All_rectangles[i].Width;
+                    Rect_in_row++;
                 }
                 else
                 {
+                    //Przejście do nowego rzędu
+                    for (int j = 0; j < Rect_in_row; j++)
+                    {
+                        
+                        Rectangle free_space = new Rectangle();
+                        if (j == Rect_in_row - 1)
+                        {
+                            if (Width_left > 0)
+                            {
+                                free_space.X = Packed_rectangles[Prev_row_count].X + Packed_rectangles[Prev_row_count].Width;
+                                free_space.Y = Packed_rectangles[Prev_row_count].Y;
+                                free_space.Height = Packed_rectangles[Prev_row_count].Height;
+                                free_space.Width = Width_left;
+                            }
+                        }
+                        else
+                        {
+                            if (Width_left > 0)
+                            {
+                                free_space.Height = Packed_rectangles[Prev_row_count].Height - Packed_rectangles[Prev_row_count + 1].Height;
+                                free_space.X = Packed_rectangles[Prev_row_count + 1].X;
+                                free_space.Y = Packed_rectangles[Prev_row_count + 1].Y + Packed_rectangles[Prev_row_count + 1].Height;
+                                free_space.Width = (int)Parent_form.Main_Container.Widht_100() - Packed_rectangles[Prev_row_count + 1].X;
+                            }
 
+                        }
+                        Free_Space_rectangles.Add(free_space);
+                        Prev_row_count++;
+                    }
+                    Prev_row_count = Rect_in_row;
+                    Rect_in_row = 0;
+                   
+
+                    
                     start_point.X = 0;
                     start_point.Y += Height_left;
                     Width_left = (int)Parent_form.Main_Container.Widht_100();
+                    //jeśli
                     if (All_rectangles[i].Width > Width_left)
                     {
                         Unpackeg_rectangles.Add(All_rectangles[i]);
@@ -148,7 +192,7 @@ namespace Package_master
                     temp.Y = start_point.Y;
                     All_rectangles[i] = temp;
                     Packed_rectangles.Add(All_rectangles[i]);
-
+                    Rect_in_row++;
                     start_point.X += (int)All_rectangles[i].Width;
                     Width_left -= (int)All_rectangles[i].Width;
                     Height_left = (int)All_rectangles[i].Height;
@@ -158,6 +202,7 @@ namespace Package_master
 
             }
 
+            //Kolorowanie poszczególnych paczek
             Rectangle prev_rect = Packed_rectangles.First();
 
             int Colors_count = 0;
@@ -186,7 +231,7 @@ namespace Package_master
 
         private void pDraw(object sender, PaintEventArgs e)
         {
-            Form1 Parent_form = (Form1)this.Owner;
+            Main_Form Parent_form = (Main_Form)this.Owner;
             Graphics g = e.Graphics;
 
             g.FillRectangle(new SolidBrush(Color.Wheat), 0, 0, Parent_form.Main_Container.Widht_100(), Parent_form.Main_Container.Height_100());
@@ -208,6 +253,11 @@ namespace Package_master
                 g.DrawRectangle(new Pen(Color.Black), rect);
                 
                 prev_rect = rect;
+            }
+            foreach (Rectangle fs in Free_Space_rectangles)
+            {
+                g.FillRectangle(new SolidBrush(Color.Red), fs);
+                g.DrawRectangle(new Pen(Color.Black), fs);
             }
 
         }

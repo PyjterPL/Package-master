@@ -37,7 +37,7 @@ namespace Package_master
     
         public override string ToString()
         {
-            return "H: "+height.ToString() + "x" + " W: "+width.ToString();
+            return "H: "+height.ToString() + " " + " W: "+width.ToString();
         }
 
         public int CompareTo(object obj)

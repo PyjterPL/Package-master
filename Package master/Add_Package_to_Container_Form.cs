@@ -32,7 +32,7 @@ namespace Package_master
 
         private void bAdd_to_Container_Click(object sender, EventArgs e)
         {
-            Form1 form = (Form1)this.Owner;
+            Main_Form form = (Main_Form)this.Owner;
 
             int Result = (int)Packages_to_container_numericUpDown.Value;
             if (Result > 0)
@@ -56,6 +56,30 @@ namespace Package_master
         private void Packages_to_container_numericUpDown_ValueChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void bAdd_to_Container_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+
+            }
+        }
+
+        private void Add_Package_to_Container_Form_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                bAdd_to_Container_Click(sender, e);
+            }
+        }
+
+        private void Add_Package_to_Container_Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                bAdd_to_Container_Click(sender, e);
+            }
         }
     }
 }

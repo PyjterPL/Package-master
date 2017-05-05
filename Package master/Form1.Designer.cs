@@ -1,6 +1,6 @@
 ﻿namespace Package_master
 {
-    partial class Form1
+    partial class Main_Form
     {
         /// <summary>
         /// Required designer variable.
@@ -45,6 +45,7 @@
             this.lContainer_size = new System.Windows.Forms.Label();
             this.bContainer_size_change = new System.Windows.Forms.Button();
             this.bArrange = new System.Windows.Forms.Button();
+            this.bClear_Container = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Height_numeric_updown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Width_numericUpDown)).BeginInit();
             this.gDefined_Packages.SuspendLayout();
@@ -223,11 +224,22 @@
             this.bArrange.UseVisualStyleBackColor = true;
             this.bArrange.Click += new System.EventHandler(this.bArrange_Click);
             // 
-            // Form1
+            // bClear_Container
+            // 
+            this.bClear_Container.Location = new System.Drawing.Point(459, 90);
+            this.bClear_Container.Name = "bClear_Container";
+            this.bClear_Container.Size = new System.Drawing.Size(96, 23);
+            this.bClear_Container.TabIndex = 19;
+            this.bClear_Container.Text = "Usuń wszystkie";
+            this.bClear_Container.UseVisualStyleBackColor = true;
+            this.bClear_Container.Click += new System.EventHandler(this.bClear_Container_Click);
+            // 
+            // Main_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(718, 285);
+            this.Controls.Add(this.bClear_Container);
             this.Controls.Add(this.bArrange);
             this.Controls.Add(this.bContainer_size_change);
             this.Controls.Add(this.lContainer_size);
@@ -238,7 +250,7 @@
             this.Controls.Add(this.gDefined_Packages);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "Main_Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Package master";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -269,6 +281,7 @@
         private System.Windows.Forms.NumericUpDown Width_numericUpDown;
         internal System.Windows.Forms.Label lContainer_size;
         private System.Windows.Forms.Button bArrange;
+        private System.Windows.Forms.Button bClear_Container;
     }
 }
 

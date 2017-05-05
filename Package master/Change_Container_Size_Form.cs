@@ -36,7 +36,7 @@ namespace Package_master
 
         private void bChange_Click(object sender, EventArgs e)
         {
-            Form1 form = (Form1)this.Owner;
+            Main_Form form = (Main_Form)this.Owner;
 
             form.Main_Container.Height=(float)Height_numericUpDown.Value;
             form.Main_Container.Width=(float)Width_numericUpDown.Value;
