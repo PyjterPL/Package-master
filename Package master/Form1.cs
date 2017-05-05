@@ -287,7 +287,7 @@ namespace Package_master
                 }
                 else
                 {
-                    Change_Form.Activate();
+                    arrangement_form.Activate();
                 }
             }
             else

@@ -35,7 +35,12 @@ namespace Package_master
             First_move = false;
 
             randomColorName= names[randomGen.Next(names.Length)];
+            while (KnownColor.Black == randomColorName)
+            {
+                randomColorName = names[randomGen.Next(names.Length)];
+            }
             randomColor = Color.FromKnownColor(randomColorName);
+
         }
 
         private void gContainer_Enter(object sender, EventArgs e)
@@ -183,15 +188,30 @@ namespace Package_master
 
                         if (Free_Space_rectangles[f].Contains(temporary))
                             {
-                            //MessageBox.Show("Mieści się w wolnym!");
+                            
                             All_rectangles[i] = temporary;
                             Packed_rectangles.Add(All_rectangles[i]);
                             Rect_in_row++;
-                           // start_point.X += (int)All_rectangles[i].Width;
-                            //Width_left -= (int)All_rectangles[i].Width;
-                           // Height_left = (int)All_rectangles[i].Height;
+                           
                             free_space_filled = true;
+                            Rectangle devided_free_space1 = new Rectangle();
+                            Rectangle devided_free_space2 = new Rectangle();
+                            //Dodawanie "dolnego"prostokąta 
+
+                            devided_free_space1.X = temporary.X;
+                            devided_free_space1.Y = temporary.Y + temporary.Height;
+                            devided_free_space1.Width = Free_Space_rectangles[f].Width;
+                            devided_free_space1.Height = Free_Space_rectangles[f].Height - temporary.Height;
+                            
+                            //dodawanie bocznego prostokąta
+                            devided_free_space2.X = temporary.X + temporary.Width;//działa
+                            devided_free_space2.Y = temporary.Y;
+                            devided_free_space2.Height = temporary.Height;
+                            devided_free_space2.Width = (int)Parent_form.Main_Container.Widht_100() - devided_free_space2.X;
+
                             Free_Space_rectangles.RemoveAt(f);
+                            Free_Space_rectangles.Add(devided_free_space1);
+                            Free_Space_rectangles.Add(devided_free_space2); //dobrze wykrywany
                             break;
                             }
                     }
@@ -238,6 +258,10 @@ namespace Package_master
 
             
             randomColorName = names[randomGen.Next(names.Length)];
+            while (KnownColor.Black == randomColorName)
+            {
+                randomColorName = names[randomGen.Next(names.Length)];
+            }
             randomColor = Color.FromKnownColor(randomColorName);
             Packages_Colors.Add(randomColor);
             
@@ -246,6 +270,10 @@ namespace Package_master
                 if (!prev_rect.Contains(rect))// != prev_rect.Size)
                 {
                    randomColorName = names[randomGen.Next(names.Length)];
+                    while (KnownColor.Black == randomColorName)
+                    {
+                        randomColorName = names[randomGen.Next(names.Length)];
+                    }
                     randomColor = Color.FromKnownColor(randomColorName);
                     Packages_Colors.Add(randomColor);
                 }
@@ -274,11 +302,7 @@ namespace Package_master
             {
                 prev_rect = Packed_rectangles.First();
             }
-            foreach (Rectangle fs in Free_Space_rectangles)
-            {
-                g.FillRectangle(new SolidBrush(Color.Red), fs);
-                g.DrawRectangle(new Pen(Color.Black), fs);
-            }
+           
             foreach (Rectangle rect in Packed_rectangles)
             {
                 if (rect.Size != prev_rect.Size)
@@ -286,12 +310,17 @@ namespace Package_master
                     i++;
                 }
                 g.FillRectangle(new SolidBrush(Packages_Colors[i]), rect);
+                
                 g.DrawRectangle(new Pen(Color.Black), rect);
                 
                 prev_rect = rect;
             }
-            
 
+            //foreach (Rectangle fs in Free_Space_rectangles)
+            //{
+            //    g.FillRectangle(new SolidBrush(Color.Red), fs);
+            //    g.DrawRectangle(new Pen(Color.White), fs);
+            //}
         }
     }
 }
