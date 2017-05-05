@@ -142,7 +142,7 @@ namespace Package_master
                         Rectangle free_space = new Rectangle();
                         if (j == Rect_in_row - 1)
                         {
-                            if (Width_left > 0)
+                            if (Packed_rectangles[Prev_row_count].Width > 0)
                             {
                                 free_space.X = Packed_rectangles[Prev_row_count].X + Packed_rectangles[Prev_row_count].Width;
                                 free_space.Y = Packed_rectangles[Prev_row_count].Y;
@@ -152,7 +152,7 @@ namespace Package_master
                         }
                         else
                         {
-                            if (Width_left > 0)
+                            if (Packed_rectangles[Prev_row_count].Width > 0)
                             {
                                 free_space.Height = Packed_rectangles[Prev_row_count].Height - Packed_rectangles[Prev_row_count + 1].Height;
                                 free_space.X = Packed_rectangles[Prev_row_count + 1].X;
@@ -164,7 +164,7 @@ namespace Package_master
                         Free_Space_rectangles.Add(free_space);
                         Prev_row_count++;
                     }
-                    Prev_row_count = Rect_in_row;
+                    //Prev_row_count += Rect_in_row;
                     Rect_in_row = 0;
                    
 
@@ -205,19 +205,18 @@ namespace Package_master
             //Kolorowanie poszczególnych paczek
             Rectangle prev_rect = Packed_rectangles.First();
 
-            int Colors_count = 0;
+            
             randomColorName = names[randomGen.Next(names.Length)];
             randomColor = Color.FromKnownColor(randomColorName);
             Packages_Colors.Add(randomColor);
-            Colors_count++;
+            
             foreach (Rectangle rect in Packed_rectangles)
             {
-                if (rect.Size != prev_rect.Size)
+                if (!prev_rect.Contains(rect))// != prev_rect.Size)
                 {
                    randomColorName = names[randomGen.Next(names.Length)];
                     randomColor = Color.FromKnownColor(randomColorName);
                     Packages_Colors.Add(randomColor);
-                    Colors_count++;
                 }
 
 
