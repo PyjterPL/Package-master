@@ -19,7 +19,7 @@ namespace Package_master
         private List<Rectangle> Packed_rectangles = new List<Rectangle>();
         private List<Rectangle> Unpackeg_rectangles = new List<Rectangle>();
         private List<Rectangle> Free_Space_rectangles = new List<Rectangle>();
-
+        private List<Color> Packages_Colors = new List<Color>();
 
         Random randomGen = new Random();
         KnownColor[] names = (KnownColor[])Enum.GetValues(typeof(KnownColor));
@@ -157,6 +157,28 @@ namespace Package_master
 
 
             }
+
+            Rectangle prev_rect = Packed_rectangles.First();
+
+            int Colors_count = 0;
+            randomColorName = names[randomGen.Next(names.Length)];
+            randomColor = Color.FromKnownColor(randomColorName);
+            Packages_Colors.Add(randomColor);
+            Colors_count++;
+            foreach (Rectangle rect in Packed_rectangles)
+            {
+                if (rect.Size != prev_rect.Size)
+                {
+                   randomColorName = names[randomGen.Next(names.Length)];
+                    randomColor = Color.FromKnownColor(randomColorName);
+                    Packages_Colors.Add(randomColor);
+                    Colors_count++;
+                }
+
+
+                prev_rect = rect;
+
+            }
             Invalidate(true);
             First_move = true;
             bDeploy.Dispose();
@@ -169,8 +191,9 @@ namespace Package_master
 
             g.FillRectangle(new SolidBrush(Color.Wheat), 0, 0, Parent_form.Main_Container.Widht_100(), Parent_form.Main_Container.Height_100());
             g.DrawRectangle(new Pen(Color.Black), 0, 0, Parent_form.Main_Container.Widht_100(), Parent_form.Main_Container.Height_100());
-            Rectangle prev_rect=new Rectangle();
 
+            int i = 0;
+            Rectangle prev_rect=new Rectangle();
             if (First_move)
             {
                 prev_rect = Packed_rectangles.First();
@@ -179,15 +202,12 @@ namespace Package_master
             {
                 if (rect.Size != prev_rect.Size)
                 {
-                    randomColorName = names[randomGen.Next(names.Length)];
-                    randomColor = Color.FromKnownColor(randomColorName);
-
+                    i++;
                 }
-                g.FillRectangle(new SolidBrush(randomColor), rect);
+                g.FillRectangle(new SolidBrush(Packages_Colors[i]), rect);
                 g.DrawRectangle(new Pen(Color.Black), rect);
-               
+                
                 prev_rect = rect;
-
             }
 
         }
