@@ -142,7 +142,7 @@ namespace Package_master
                 if (start_point.Y + All_rectangles[i].Height > Height_in_container_left)
                 {
                     Unpackeg_rectangles.Add(All_rectangles[i]);
-                    lUnpacked_packages_list.Items.Add(All_rectangles[i].Width.ToString() + "x" + All_rectangles[i].Height.ToString());
+                    //lUnpacked_packages_list.Items.Add(All_rectangles[i].Width.ToString() + "x" + All_rectangles[i].Height.ToString());
                     continue;
                 } 
 
@@ -254,13 +254,13 @@ namespace Package_master
                         if (All_rectangles[i].Width > Width_left)
                         {
                             Unpackeg_rectangles.Add(All_rectangles[i]);
-                            lUnpacked_packages_list.Items.Add(All_rectangles[i].Width.ToString() + "x" + All_rectangles[i].Height.ToString());
+                            //lUnpacked_packages_list.Items.Add(All_rectangles[i].Width.ToString() + "x" + All_rectangles[i].Height.ToString());
                             continue;
                         }
                         if (start_point.Y + All_rectangles[i].Height > Height_in_container_left)
                         {
                             Unpackeg_rectangles.Add(All_rectangles[i]);
-                            lUnpacked_packages_list.Items.Add(All_rectangles[i].Width.ToString() + "x" + All_rectangles[i].Height.ToString());
+                            //lUnpacked_packages_list.Items.Add(All_rectangles[i].Width.ToString() + "x" + All_rectangles[i].Height.ToString());
                             continue;
                         }
 
@@ -329,6 +329,28 @@ namespace Package_master
             {
                 lPackages_in_container_list.Items.Add("ID: " + pair.Value.ToString() + " "+pair.Key.Width.ToString()+" "+pair.Key.Height.ToString());
             }
+
+            Dictionary<Rectangle, int> Unpacked_list = new Dictionary<Rectangle, int>();
+            foreach (Rectangle unpacked in Unpackeg_rectangles)
+            {
+                Rectangle temp = unpacked;
+                temp.X = 0;
+                temp.Y = 0;
+
+                if (Unpacked_list.ContainsKey(temp))
+                {
+
+                    Unpacked_list[temp]++;
+                    continue;
+                }
+                Unpacked_list.Add(temp, 1);
+            }
+            foreach (KeyValuePair<Rectangle, int> pair in Unpacked_list)
+            {
+                lUnpacked_packages_list.Items.Add("ID: " + pair.Value.ToString() + " " + pair.Key.Width.ToString() + " " + pair.Key.Height.ToString());
+            }
+            l_outside_packages.Text = "Paczki poza kontenerem: " + Unpackeg_rectangles.Count.ToString();
+            l_in_container_packages.Text = "Paczek w kontenerze: " + Packed_rectangles.Count.ToString();
             //koniec kolorowania
             Invalidate(true);
             First_move = true;
@@ -370,6 +392,12 @@ namespace Package_master
                // g.FillRectangle(new SolidBrush(Color.Red), fs);
               //  g.DrawRectangle(new Pen(Color.White), fs);
             }
+            //l_outside_packages.Text="Paczki poza kontenerem" + 
+        }
+
+        private void l_all_packages_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -30,7 +30,7 @@
         {
             this.pDrawningPanel = new System.Windows.Forms.Panel();
             this.lPackages_in_container_list = new System.Windows.Forms.ListBox();
-            this.l_all_packages = new System.Windows.Forms.Label();
+            this.l_in_container_packages = new System.Windows.Forms.Label();
             this.l_outside_packages = new System.Windows.Forms.Label();
             this.lUnpacked_packages_list = new System.Windows.Forms.ListBox();
             this.bDeploy = new System.Windows.Forms.Button();
@@ -53,14 +53,15 @@
             this.lPackages_in_container_list.Size = new System.Drawing.Size(120, 95);
             this.lPackages_in_container_list.TabIndex = 2;
             // 
-            // l_all_packages
+            // l_in_container_packages
             // 
-            this.l_all_packages.AutoSize = true;
-            this.l_all_packages.Location = new System.Drawing.Point(205, 63);
-            this.l_all_packages.Name = "l_all_packages";
-            this.l_all_packages.Size = new System.Drawing.Size(89, 13);
-            this.l_all_packages.TabIndex = 3;
-            this.l_all_packages.Text = "Wszystkie paczki";
+            this.l_in_container_packages.AutoSize = true;
+            this.l_in_container_packages.Location = new System.Drawing.Point(205, 63);
+            this.l_in_container_packages.Name = "l_in_container_packages";
+            this.l_in_container_packages.Size = new System.Drawing.Size(106, 13);
+            this.l_in_container_packages.TabIndex = 3;
+            this.l_in_container_packages.Text = "Paczki w kontenerze";
+            this.l_in_container_packages.Click += new System.EventHandler(this.l_all_packages_Click);
             // 
             // l_outside_packages
             // 
@@ -108,7 +109,7 @@
             this.Controls.Add(this.bDeploy);
             this.Controls.Add(this.lUnpacked_packages_list);
             this.Controls.Add(this.l_outside_packages);
-            this.Controls.Add(this.l_all_packages);
+            this.Controls.Add(this.l_in_container_packages);
             this.Controls.Add(this.lPackages_in_container_list);
             this.Controls.Add(this.pDrawningPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -126,7 +127,7 @@
 
         internal System.Windows.Forms.Panel pDrawningPanel;
         internal System.Windows.Forms.ListBox lPackages_in_container_list;
-        internal System.Windows.Forms.Label l_all_packages;
+        internal System.Windows.Forms.Label l_in_container_packages;
         internal System.Windows.Forms.Label l_outside_packages;
         internal System.Windows.Forms.ListBox lUnpacked_packages_list;
         internal System.Windows.Forms.Button bDeploy;

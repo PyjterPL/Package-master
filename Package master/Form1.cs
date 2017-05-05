@@ -272,7 +272,7 @@ namespace Package_master
                     arrangement_form.pDrawningPanel.Width = (int)(Main_Container.Widht_100()) + 50;
                     arrangement_form.pDrawningPanel.Height = (int)(Main_Container.Height_100()) + 100;
                     arrangement_form.lPackages_in_container_list.Left = arrangement_form.pDrawningPanel.Width;
-                    arrangement_form.l_all_packages.Left = arrangement_form.pDrawningPanel.Width;
+                    arrangement_form.l_in_container_packages.Left = arrangement_form.pDrawningPanel.Width;
                     arrangement_form.l_outside_packages.Left = arrangement_form.pDrawningPanel.Width;
                     arrangement_form.lUnpacked_packages_list.Left = arrangement_form.pDrawningPanel.Width;
                     arrangement_form.bDeploy.Left = arrangement_form.pDrawningPanel.Width;
